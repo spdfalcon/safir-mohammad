@@ -1,0 +1,104 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+ویرایش تیکت ـ 
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">ویرایش تیکت {{ ticket }}</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="card-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+        
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="user">کاربر*</label>
+                                        <select class="form-control" id="user" name="user">
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}" {% if user == ticket.user %}selected{% endif %}>
+                                                    {{ user }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>  
+                            
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="title">عنوان تیکت*</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="{{ ticket.title }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="description">توضیحات تیکت*</label>
+                                        <textarea class="form-control ckeditor" id="description" name="description" >{{ ticket.description }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="priority">اولویت*</label>
+                                        <select class="form-control" id="priority" name="priority">
+                                            {% for priority in priorities %}
+                                                <option value="{{ priority.0 }}" {% if priority.0 == ticket.priority.0 %}selected{% endif %}>
+                                                    {{ priority.1 }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>  
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="status">وضعیت*</label>
+                                        <select class="form-control" id="status" name="status">
+                                            {% for status in statuses %}
+                                                <option value="{{ status.0 }}" {% if status.0 == ticket.status.0 %}selected{% endif %}>
+                                                    {{ status.1 }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>  
+                                
+                            </div>
+                            
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">ویرایش تیکت</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

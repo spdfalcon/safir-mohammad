@@ -1,0 +1,152 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load jalali_tags %}
+
+{% block title %}ایجاد تیکت 
+{{ request.user.get_full_name|default:"حساب من" }}
+{% endblock %}
+
+
+{% block css %}
+
+        
+{% endblock css %}
+
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+	<li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+	<li class="breadcrumb-item"><a href="">مشخصات فردی</a></li>
+</ul>
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+<div class="container mt-4 mb-4">
+
+	<div class="row">
+		<p class="alert alert-info text-center">
+			اگر در برنامه مشکلی وجود دارد از طریق فرم زیر، تیکت پشتیبانی را ارسال کنید.
+            <br>
+            پاسخ پشتیبانی تا حداکثر، 24 ساعت پس از ثبت تیکت برای شما ارسال می‌گردد
+		</p>
+		<div class="card p-4">
+            <h2 class="text-center">
+                ثبت تیکت پشتیبانی
+            </h2>
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger m-1">
+                            <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <hr>
+            <form action="." method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="row">
+
+                    <div class="col-md-6 mb-4">
+                        {{ form.title|as_crispy_field }}
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        {{ form.priority|as_crispy_field }}
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        {{ form.description|as_crispy_field }}
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <input type="submit" value="ثبت تیکت" class="btn btn-dark">
+                </div>
+            
+            </form>
+            {% comment %} 
+            <form method="POST" action=".">
+                <div class="row">
+                    
+                        <div class="col-md-6 mb-4">
+                            <label>
+                                درجه اهمیت
+                            </label>
+                            <select class="form-control" name="priority">
+                                <option value="1">
+                                     خیلی کم
+                                </option>
+                                <option value="2">
+                                    کم
+                                </option>
+                                <option value="3">
+                                    متوسط
+                                </option>
+                                <option value="4">
+                                    زیاد
+                                </option>
+                                <option value="5">
+                                    خیلی زیاد
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label>
+                                موضوع تیکت
+                            </label>
+                            <input type="text" name="title" placeholder="موضوع تیکت را وارد نمایید" class="form-control" required />
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+                            <label>
+                                شرح تیکت
+                            </label>
+                            <textarea type="text" name="description" placeholder="شرح تیکت را وارد نمایید" class="form-control" required></textarea>
+                        </div>
+
+
+                        <div class="col-md-4 mb-4">
+                            <input type="submit" value="ثبت تیکت" class="btn btn-dark">
+                        </div>
+                    
+                </div>
+            </form> 
+            {% endcomment %}
+        </div>
+	</div>
+</div>
+
+
+
+{% endblock content %}
+
+
+{% block javascripts %}
+
+<script>
+	let j = jQuery.noConflict();
+	j(document).ready(function () {
+	let tabs = j(".tabs li a");
+	tabs.click(function () {
+		let content = this.hash.replace("/", "");
+		tabs.removeClass("active");
+		j(this).addClass("active");
+		j("#content").find("div").hide();
+		j(content).fadeIn(200);
+	});
+	});
+</script>
+
+{% endblock javascripts %}

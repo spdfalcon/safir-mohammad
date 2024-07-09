@@ -1,0 +1,98 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+سفیر - آموزش آنلاین زبان تخصصی
+{% endblock title %}
+
+{% block css %}
+
+
+
+{% endblock %}
+
+{% block content %}
+<section class="" style="">
+    <div class="container pt-4 pb-4" style="width:90% !important;text-align:center">
+        <form class="search-box mb-4">
+            <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+            <input type="search" id="searchInput" class="search-input home-search-input" name="search" placeholder="جستجو...">
+        </form>
+        
+        <div class="row mx-auto mb-4 banner-home">
+            <img src="{{ main_banner.image.url }}" alt="{{ main_banner.title }}" style="border-radius:10px" />
+        </div>
+        
+        <div class="row mx-auto" style="--bs-gutter-x:1 !important;--bs-gutter-y:1 !important;">
+            {% for category in top_categories %}
+            <div class="col-4 col-lg-2 text-center">
+                <a href="{% url 'main:category_detail' category.slug %}">
+                <div class="d-flex justify-content-center">
+                    <div class="card p-1" style="border-radius:20px;">
+                        {% if category.picture %}
+                            <img src="{{ category.picture.url }}" alt="{{ category.title }}" style="width:60px; margin:auto; display:block;">
+                        {% else %}
+                            <img src="" alt="{{ category.title }}" style="width:60px; margin:auto; display:block;">
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="font-12 font-weight-bold mt-1">
+                    <a href="{% url 'main:category_detail' category.slug %}">
+                        {{ category.title }}
+                    </a>
+                </p>
+            </a>
+            </div>      
+            {% endfor %}
+            <div class="row mx-auto d-flex justify-content-center mt-4">
+            
+                <div class="col-auto">
+                    <div class="sec-btn"><a href="{% url 'main:categories' %}" class="th-btn">
+                        مشاهده همه
+                        <i
+                                class="fas fa-arrow-right ms-2"></i></a></div>
+                </div>
+            </div>
+            <br>
+            <hr>
+            {% for website in websites %}
+            <div class="col-4 col-lg-2 text-center">
+                <a href={{ website.link }}>
+                <div class="d-flex justify-content-center">
+                    <div class="card p-1" style="border-radius:20px;">
+                        {% if website.image %}
+                            <img src="{{ website.image.url }}" alt="{{ website.title }}" style="width:60px; margin:auto; display:block;">
+                        {% else %}
+                            <img src="" alt="{{ website.title }}" style="width:60px; margin:auto; display:block;">
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="font-12 font-weight-bold mt-1">
+                    <a href={{ website.link }}>
+                        {{ website.title }}
+                    </a>
+                </p>
+            </a>
+            </div>      
+            {% endfor %}
+        </div>
+
+        
+
+        <div class="row mx-auto d-flex justify-content-center mt-4">
+            
+            <div class="col-auto">
+                <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=480492&Code=zpdOr144R2KB2D0s5q1gmIkhE3IhvOUR'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=480492&Code=zpdOr144R2KB2D0s5q1gmIkhE3IhvOUR' alt='' style='cursor:pointer' Code='zpdOr144R2KB2D0s5q1gmIkhE3IhvOUR'></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}

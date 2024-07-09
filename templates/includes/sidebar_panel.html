@@ -1,0 +1,422 @@
+{% load static %}
+
+
+<aside class="main-sidebar sidebar-dark-info elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'main:home' %}" class="brand-link bg-danger">
+        {% comment %} <img src="{% static 'img/safirmall-logo.png' %}" alt="Safir" style="background-color:white;padding:5px;border-radius:5px;" class="brand-image elevation-3"
+             style="opacity: .8"> {% endcomment %}
+        <span class="brand-text font-weight-light">
+            مدیریت سوپر اپ سفیر
+        </span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar" style="direction: ltr">
+        <div style="direction: rtl">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="{% static 'img/safirmall-logo.png' %}" class="elevation-2" style="background-color:white;padding:5px;border-radius:5px; height: 50px;width: 70px;" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="{% url 'panel:dashboard' %}" class="d-block">
+                        پنل مدیریت سفیر
+                    </a>
+                    <a href="{% url 'accounts:logout' %}" style="font-size:smaller" class="text-danger">خروج</a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="{% url 'panel:dashboard' %}" class="nav-link">
+                            <i class="nav-icon fa fa-home"></i>
+                            <p>
+                                داشبورد
+                                <span class="right badge badge-danger">پیشخوان</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                کاربران
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:users' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه کاربران
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:user_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    ایجاد کاربر جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p>
+                                کیف پول
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:wallet' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه کیف پول ها
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-graduation-cap"></i>
+                            <p>
+                                اساتید
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:professors' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه اساتید
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:professor_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    ایجاد استاد جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                دسته بندی ها
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:categories' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه دسته بندی ها
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:category_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    ایجاد دسته بندی جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-cube"></i>
+                            <p>
+                                دسته بندی
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:packages' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه دسته بندی
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:package_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    ایجاد دسته بندی جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-cube"></i>
+                            <p>
+                                مجموعه
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:courses' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه مجموعه
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:course_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    افزودن مجموعه جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                فصل ها
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:chapters' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه فصل ها
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:chapter_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    افزودن فصل جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-cube"></i>
+                            <p>
+                                محصول
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:parts' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه محصول
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:part_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    افزودن محصول جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-comment"></i>
+                            <p>
+                                نظرات
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:comments' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه نظرات
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:comment_create' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    افزودن نظر جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                تیکت ها
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:tickets' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه تیکت ها
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:ticket_create' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد تیکت جدید
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:default_message_create_edit' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد پیام پیشفرض
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                سفارشات
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:orders' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه سفارش ها
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:order_create' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد سفارش جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                تخفیفات
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:discounts' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه تخفیف ها
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:discount_create' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد کد تخفیف جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                بنر صفحه اصلی
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:main_banner_create_edit' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد بنر 
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                وبسایت ها
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:websites' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه وبسایت ها
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:website_create' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    ایجاد وبسایت جدید
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-cube"></i>
+                            <p>
+                                نوتیفیکیشن
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:notifications' %}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    همه نوتیفیکیشن ها
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:send_notification' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    ارسال نوتیفیکیشن جدید
+                                </a>
+                            </li>
+                        </ul>
+
+                        <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-cube"></i>
+                            <p>
+                                حداقل مبلغ سفارش
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="font-size:small">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'panel:mcc' %}">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    حداقل مبلغ سفارش
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+
+    </div>
+    <!-- /.sidebar -->
+</aside>

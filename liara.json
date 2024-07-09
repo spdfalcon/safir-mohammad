@@ -1,0 +1,18 @@
+{
+  "platform": "django",
+  "app": "safir-edu",
+
+  "disks": [{
+      "name": "media",
+      "mountTo": "media"
+    },
+
+    {
+      "name": "temp",
+      "mountTo": "/tmp"
+    }
+  ],
+  "crons": [
+      "0 20 * * * cd $ROOT && python3 manage.py check_remaining_days >> /dev/null 2>&1"
+  ]
+}

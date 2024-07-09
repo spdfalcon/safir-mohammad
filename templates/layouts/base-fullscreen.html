@@ -1,0 +1,99 @@
+{% load static %}
+
+<html lang="fa" dir="rtl" class="np-js">
+
+    <head>
+        <title>
+            سوپر اپ سفیر - 
+            {% block title %}{% endblock title %}
+        </title>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+        {% block meta %}
+            <!-- Add your meta tags here if needed -->
+        {% endblock meta %}
+    
+        {% block seo %}
+        <meta property="og:title" content="آموزشگاه زبان سفیر">
+        {% endblock seo %}
+
+
+        <meta name="author" content="SAFIR">
+        <meta name="description" content="سفیر- آموزش زبان انگلیسی از صفر تا صد">
+        <meta name="keywords" content="آموزشگاه آنلاین سفیر">
+        <meta name="robots" content="INDEX,FOLLOW">
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <link rel="icon" type="image/png" sizes="96x96" href="{% static 'icon-app-safirmall.jpg' %}">
+
+        <meta name="enamad" content="7796018" />
+        
+        
+        <link rel="stylesheet" href="{% static 'iranSans/index.css' %}">
+        <link rel="stylesheet" href="{% static 'login/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+        <link rel="stylesheet" href="{% static 'login/css/style.css' %}">
+
+        {% block css %}
+        
+        {% endblock css %}
+    </head>
+
+    <body>
+       
+        {% if messages %}
+            <div class="container">
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        {% block content %}{% endblock content %}
+       
+
+       
+        
+        <script src="{% static 'main/js/jquery-3.6.0.min.js' %}"></script>
+       
+        <script src="{% static 'login/js/main.js' %}"></script>
+        {% include 'includes/scripts.html' %}
+
+        <!-- script for show more/less content in login page -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            var showMoreBtn = document.getElementById("showMore");
+            var shortContent = document.getElementById("privacy-short");
+            var fullContent = document.getElementById("privacy-full");
+            
+
+            showMoreBtn.addEventListener("click", function() {
+                if (fullContent.style.display === "none" || fullContent.style.display === "") {
+                    shortContent.style.display = "none";
+                    fullContent.style.display = "block";
+                    showMoreBtn.textContent = "مشاهده کمتر";
+                    showMoreBtn.style.display = "block";
+                } else {
+                    shortContent.style.display = "block";
+                    fullContent.style.display = "none";
+                    showMoreBtn.textContent = "مشاهده بیشتر";
+                    showMoreBtn.style.display = "block";
+                }
+            });
+        });
+        </script>
+        <!-- Load JavaScript files -->
+        {% block javascripts %}
+
+        {% endblock javascripts %}
+    
+    </body>
+
+</html>

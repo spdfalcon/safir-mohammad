@@ -1,0 +1,58 @@
+{% load static %}
+<div class="footer-fixed">
+    <a href="/" class="footer-item my-auto {% if request.path == '/'  %} text-dark-safir {% endif %}">
+        <i class="fas fa-home footer-fix-icon"></i>
+        <div>
+        خانه
+        </div>
+    </a>
+    <a href="/categories" class="footer-item my-auto {% if request.path == '/categories/'  %} text-dark-safir {% endif %}">
+        <i class="fas fa-list footer-fix-icon"></i>
+        <div>
+        دسته بندی ها
+    </div>
+    </a>
+    <a href="/search" class="footer-item my-auto {% if request.path == '/search/'  %} text-dark-safir {% endif %}">
+        <i class="fas fa-search footer-fix-icon"></i>
+        <div>
+        جستجو
+    </div>
+    </a>
+    <a href="/profiles/myedu" class="footer-item my-auto {% if request.path == '/profiles/myedu/'  %} text-dark-safir {% endif %}">
+        <i class="fas fa-graduation-cap footer-fix-icon"></i>
+        <div>
+        مجموعه های من
+    </div>
+    </a>
+    <a href="/wishlist" class="footer-item my-auto {% if request.path == '/wishlist/'  %} text-dark-safir {% endif %}">
+        <i class="fas fa-heart footer-fix-icon"></i>
+        <div>
+        علاقه‌مندی ها
+    </div>
+    </a>
+        
+</div>
+{% comment %} <div class="row justify-content-between align-items-center p-2" style="background-color:#f1f2f2">
+                
+                
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <img src="{% static 'main/images/enamad.png' %}" load="lazy" alt="enamad">
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="{% static 'main/images/samandehi.png' %}" load="lazy" alt="samandehi">
+        </div>
+    </div>
+
+</div> {% endcomment %}
+<footer class="footer-copy-mohammad">
+    <div class="text-center">
+        <p class="copyright-text">
+            حق کپی رایت تمام محتوای موجود در این اپلیکیشن برای موسسه زبان سفیر است.  
+        </p>
+    </div>
+</footer>
+{% comment %} <div class="scroll-top"><svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+            style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;" />
+    </svg></div> {% endcomment %}

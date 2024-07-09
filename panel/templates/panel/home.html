@@ -1,0 +1,138 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+پنل مدیریت سفیر
+{% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>
+                        {{ packages_count }}
+                    </h3>
+
+                    <p>
+                        دسته بندی
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="{% url 'panel:packages' %}" class="small-box-footer">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>
+                        {{ courses_count }}
+                    </h3>
+
+                    <p>
+                        مجموعه
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="{% url 'panel:courses' %}" class="small-box-footer">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    
+                        <h3>
+                            {{ users_count }}
+                        </h3>
+
+                        <p>کاربر فعال</p>
+                   
+                 
+                </div>
+                
+               
+                    <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                    <a href="{% url 'panel:users' %}" class="small-box-footer">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+               
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>
+                        {{ parts_count }}
+                    </h3>
+
+                    <p>
+                        محصول
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="{% url 'panel:parts' %}" class="small-box-footer">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>
+                        {{ count_of_user_buy }} نفر
+                    </h3>
+
+                    <p>
+                        تعداد خریداران
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="{% url 'panel:orders' %}" class="small-box-footer">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>
+                        {{ total_sell_price|split_price }} تومان
+                    </h3> 
+
+                    <p>
+                        مجموع فروش
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="{% url 'panel:orders' %}" class="small-box-footer">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br>
+</div>
+{% endblock content %}

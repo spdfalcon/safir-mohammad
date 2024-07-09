@@ -1,0 +1,96 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+وبسایت ها 
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">لیست وبسایت ها</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="{% url 'panel:website_create' %}" class="btn btn-success mb-3">
+                            <i class="fa fa-plus font-17 mx-2" data-toggle="tooltip" title="افزودن وبسایت جدید"></i>
+                            افزودن وبسایت جدید
+                        </a>
+
+                        <table id="sortable-table" class="table is-striped table-striped table-bordered" role="grid" aria-describedby="datatable-checkbox_info">
+                            <input type="hidden" name="" id="#modelName" value="User">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ردیف</th>
+                                    <th class="text-center">نام وبسایت</th>
+                                    <th class="text-center">لینک وبسایت</th>
+                                    <th class="text-center">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for website in websites %}
+                                <tr data-id="{{ website.id }}">
+                                    <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                    <td class="text-center">{{ website.title|default:"_" }}</td>
+                                    <td class="text-center">{{ website.link|default:"_" }}</td>
+
+                                    <td class="text-center">
+                                        <a href="" data-toggle="modal"
+                                            data-target="#website_delete{{ website.id }}">
+                                            <i class="fa fa-trash text-muted font-17 mx-2"
+                                                data-toggle="tooltip" title=""
+                                                data-original-title="حذف"></i>
+                                        </a>
+                                        
+                                        
+                                        <a href="{% url 'panel:website_edit' website.id %}">
+                                            <i class="fa fa-edit text-muted font-17 mx-2"
+                                                data-toggle="tooltip" title=""
+                                                data-original-title="ویرایش"></i>
+                                        </a>
+                                    </td>
+                                    
+                                </tr>
+                                
+                
+                                {% comment %} delete modals {% endcomment %}
+                                <div class="modal fade" id="website_delete{{ website.id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">آیا از
+                                                    حذف وبسایت مشخص شده مطمئن هستید؟</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span class="text-dark">
+                                                    {{ website.title }}
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary ml-1"
+                                                    data-dismiss="modal">خیر</button>
+                                                <a href="{% url 'panel:website_delete' website.id %}"
+                                                    class="btn btn-danger">بله حذف شود</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

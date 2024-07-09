@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+سفیر - آموزش آنلاین زبان تخصصی
+{% endblock title %}
+
+{% block css %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<style>
+    footer{
+        position:absolute;
+        bottom:0px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<section style="padding-bottom: 200px;" class="pt-4">
+    <div class="container">
+        <div class="row">
+            {% for category in categories %}
+                <div class="col-4 col-lg-3 text-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="card p-1 shadow" style="border-radius:20px;">
+                            {% if category.picture %}
+                                <a href="{% url 'main:category_detail' category.slug %}">
+                                    <img src="{{ category.picture.url }}" alt="{{ category.title }}" style="width:60px; margin:auto; display:block;">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'main:category_detail' category.slug %}">
+                                    <img src="" alt="{{ category.title }}" style="width:60px; margin:auto; display:block;">
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="font-12 font-weight-bold mt-1">
+                        <a href="{% url 'main:category_detail' category.slug %}">
+                            {{ category.title }}
+                        </a>
+                    </p>
+                </div>  
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block js %}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Initialize Bootstrap tab -->
+<script>
+    $(document).ready(function(){
+        $('#myTab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+</script>
+{% endblock %}

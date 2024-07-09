@@ -1,0 +1,109 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+ویرایش نظر ـ 
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">ویرایش نظر {{ comment }}</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="card-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+        
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="user">کاربر*</label>
+                                        <select class="form-control text-center" id="user" name="user">
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}" {% if comment.user == user %}selected{% endif %}>{{ user }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="package">دسته بندی</label>
+                                        <select class="form-control" id="package" name="package">
+                                            <option value="">------------------------------</option>
+                                            {% for package in packages %}
+                                                <option value="{{ package.id }}" {% if comment.package == package %}selected{% endif %}>{{ package }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="course">مجموعه</label>
+                                        <select class="form-control" id="course" name="course">
+                                            <option value="">------------------------------</option>
+                                            {% for course in courses %}
+                                                <option value="{{ course.id }}" {% if comment.course == course %}selected{% endif %}>{{ course }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="rate">امتیاز*</label>
+                                        <input type="number" class="form-control" id="rate" name="rate" value="{{ comment.rate }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="is_active">وضعیت*</label>
+                                        <select class="form-control" id="is_active" name="is_active">
+                                            <option value="True" {% if comment.is_active %}selected{% endif %}>فعال</option>
+                                            <option value="False" {% if not comment.is_active %}selected{% endif %}>غیرفعال</option>
+                                        </select>
+                                    </div>
+                                </div>  
+                                
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="content">متن نظر*</label>
+                                        <textarea class="form-control" style="height:100px" id="content" name="content">{{ comment.content }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">ویرایش نظر</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

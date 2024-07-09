@@ -1,0 +1,170 @@
+body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important; /* اطمینان از اینکه body تمام عرض صفحه را پوشش می‌دهد */
+    box-sizing: border-box !important; /* اطمینان از اینکه padding و border در عرض کلی المنت‌ها گنجانده شده‌اند */
+}
+
+.custom-login-input{
+    border:1px dotted gray;
+    height:40px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.accordion-content{
+    height:200px;
+    overflow:auto;
+    padding-left:5px !important;
+}
+/* شخصی‌سازی اسکرول‌بار برای .accordion-content */
+.accordion-content::-webkit-scrollbar {
+    width: 5px; /* تنظیم ضخامت نوار اسکرول */
+}
+
+.accordion-content::-webkit-scrollbar-track {
+    background: #f1f1f1; /* رنگ پس‌زمینه مسیر اسکرول‌بار */
+}
+
+.accordion-content::-webkit-scrollbar-thumb {
+    background: #888; /* رنگ نوار اسکرول */
+}
+
+.accordion-content::-webkit-scrollbar-thumb:hover {
+    background: #555; /* رنگ نوار اسکرول هنگام hover */
+}
+
+.font-12{
+    font-size:12px;
+} 
+.text-justify{
+    text-align:justify;
+}
+
+footer{
+
+}
+.footer-copy-mohammad{
+    position: fixed;
+    bottom: 80px;
+    display: block; 
+    width: 100%;
+    text-align: center;
+    background: #ccc;
+    font-size: 10px;
+}
+@media (min-width: 773px) {
+    .footer-copy-mohammad {
+        bottom: 0;
+    font-size: 16px;
+    }
+}
+.footer-fixed {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+    color: #24292E;
+    text-align: center;
+    border-top: 1px solid grey; /* اضافه کردن یک خط بالای footer */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* اضافه کردن سایه برای زیبایی */
+    z-index: 99;
+    
+}
+
+.footer-item {
+    flex-grow: 1;
+    padding: 8px 0;
+    text-decoration: none;
+    color: #a9a9a9;
+    font-size:10px;
+    width: 20%;
+}
+
+
+
+.fa-home, .fa-list, .fa-graduation-cap, .fa-headset {
+    margin-bottom: 5px;
+}
+
+/* Media Queries برای مخفی کردن footer در دسکتاپ */
+@media (min-width: 769px) {
+    .footer-fixed {
+        display: none; /* مخفی‌سازی در دستگاه‌های با عرض بیشتر از 768px */
+    }
+
+    .banner-home{
+        display: none;
+    }
+}
+
+@media (max-width: 769px) {
+    .header-main-m{
+        height:60px;
+    }
+}
+
+.footer-fix-icon{
+    font-size:26px;
+}
+
+.text-dark-safir{
+    color: #241665 !important;
+}
+
+.font-12{
+    font-size:12px;
+} 
+.font-weight-bold{
+    font-weight: bold;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 91%;
+    margin: auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 20px 10px 45px; /* افزایش فضای پدینگ چپ برای جا دادن دکمه */
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-button {
+    position: absolute;
+    left: 5px; /* تنظیم موقعیت دکمه تا داخل کادر بیاید */
+    top: 50%;
+    transform: translateY(-50%); /* ترفندی برای قرار گرفتن دکمه در مرکز عمودی */
+    width: 35px; /* تنظیم عرض دکمه */
+    height: 35px; /* تنظیم ارتفاع دکمه */
+    padding: 0; /* حذف پدینگ داخلی */
+    border: none;
+    background: white;
+    color: #241665;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.search-button i {
+    color: #241665;
+}
+
+
+@media screen and (min-width: 800px) {
+    .safir-logo{
+        width: 70px;
+    }
+}
+
+@media (max-width: 700px) {
+    .safir-logo{
+        height: 80% !important;
+    }
+}

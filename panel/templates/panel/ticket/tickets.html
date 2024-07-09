@@ -1,0 +1,100 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+تیکت ها 
+{% endblock title %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">لیست تیکت ها</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="{% url 'panel:ticket_create' %}" class="btn btn-success mb-3">
+                            <i class="fa fa-plus font-17 mx-2"></i>
+                            افزودن تیکت جدید
+                        </a>
+
+                        <table id="sortable-table" class="table is-striped table-striped table-bordered" role="grid" aria-describedby="datatable-checkbox_info">
+                            <input type="hidden" name="" id="#modelName" value="Ticket">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ردیف</th>
+                                    <th class="text-center">عنوان تیکت</th>
+                                    <th class="text-center">تاریخ ایجاد تیکت</th>
+                                    <th class="text-center">کاربر</th>
+                                    <th class="text-center">اولویت</th>
+                                    <th class="text-center">وضعیت</th>
+                                    <th class="text-center">عملیات</th>
+                                    <th class="text-center">جزئیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticket in tickets %}
+                                <tr data-id="{{ ticket.id }}">
+                                    <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                    <td class="text-center">{{ ticket.title|default:"_" }}</td>
+                                    <td class="text-center">{{ ticket.get_date_created|default:"_" }}</td>
+                                    <td class="text-center">{{ ticket.user|default:"_" }}</td>
+                                    <td class="text-center">{{ ticket.get_priority|default:"_" }}</td>
+                                    <td class="text-center">{{ ticket.get_status|default:"_" }}</td>
+
+                                    <td class="text-center">
+                                        <a href="" data-toggle="modal"
+                                            data-target="#ticket_delete{{ ticket.id }}">
+                                            <i class="fa fa-trash text-muted font-17 mx-2"
+                                                data-toggle="tooltip" title=""
+                                                data-original-title="حذف"></i>
+                                        </a>
+                                        
+                                        <a href="{% url 'panel:ticket_edit' ticket.id %}">
+                                            <i class="fa fa-edit text-muted font-17 mx-2"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{% url 'panel:ticket_detail' ticket.id %}">نمایش جزئیات</a>
+                                    </td>
+                                </tr>
+                
+                                {% comment %} delete modals {% endcomment %}
+                                <div class="modal fade" id="ticket_delete{{ ticket.id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">آیا از
+                                                    حذف تیکت مشخص شده مطمئن هستید؟</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span class="text-dark">
+                                                    {{ ticket }}
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary ml-1"
+                                                    data-dismiss="modal">خیر</button>
+                                                <a href="{% url 'panel:ticket_delete' ticket.id %}"
+                                                    class="btn btn-danger">بله حذف شود</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

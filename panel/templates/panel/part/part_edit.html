@@ -1,0 +1,192 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+ویرایش محصول ـ 
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">ویرایش محصول {{ part }}</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="card-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+        
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="category">دسته بندی</label>
+                                        <select class="form-control text-center" id="category" name="category">
+                                            <option value="">------------------------------</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}" {% if part.category == category %}selected{% endif %}>{{ category }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="course">مجموعه</label>
+                                        <select class="form-control text-center" id="course" name="course">
+                                            <option value="">------------------------------</option>
+                                            {% for course in courses %}
+                                                <option value="{{ course.id }}" {% if part.course == course %}selected{% endif %}>{{ course }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+        
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="chapter">فصل</label>
+                                        <select class="form-control" id="chapter" name="chapter">
+                                            <option value="">------------------------------</option>
+                                            {% for chapter in chapters %}
+                                                <option value="{{ chapter.id }}" {% if part.chapter == chapter %} selected {% endif %}>{{ chapter }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="title">نام*</label>
+                                        <input type="text" class="form-control" id="name" name="title" value="{{ part.title }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="slug">پیوند یکتا</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" value="{{ part.slug }}">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="description">توضیحات*</label>
+                                        <textarea class="form-control ckeditor" style="height:100px" id="description" name="description">{{ part.description }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="is_active">وضعیت*</label>
+                                        <select class="form-control" id="is_active" name="is_active">
+                                            <option value="True" {% if part.is_active %}selected{% endif %}>فعال</option>
+                                            <option value="False" {% if not part.is_active %}selected{% endif %}>غیرفعال</option>
+                                        </select>
+                                    </div>
+                                </div>  
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="image">عکس محصول*</label>
+                                        <input type="file" class="form-control" id="image" name="image">
+                                        {% if part.image.url %}
+                                            <a href="{{ part.image.url }}" target="_blank">{{ part.image.url }}</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="image_2">عکس محصول دو(سایز مستطیلی)</label>
+                                        <input type="file" class="form-control" id="image_2" name="image_2">
+                                        {% if part.image_2 %}
+                                            <a href="{{ part.image_2.url }}" target="_blank">{{ part.image_2.url }}</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="meta_title">نام کوتاه*</label>
+                                        <input type="text" class="form-control" id="meta_title" name="meta_title" value="{{ part.meta_title }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="meta_description">توضیحات کوتاه*</label>
+                                        <textarea type="text" class="form-control" id="meta_description" name="meta_description">{{ part.meta_description }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="meta_description">توضیحات کوتاه*</label>
+                                        <textarea type="text" class="form-control" id="meta_description" name="meta_description">{{ part.meta_description }}</textarea>
+                                    </div>
+                                </div>       
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="video_link">لینک ویدئو*</label>
+                                        <textarea type="text" class="form-control" id="video_link" name="video_link">{{ part.video_link }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="part_time">زمان ویدئو*</label>
+                                        <input type="text" class="form-control" id="part_time" name="part_time" value="{{ part.part_time }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="part_index">شماره محصول*</label>
+                                        <input type="number" class="form-control" id="part_index" name="part_index" value="{{ part.part_index }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="price">قیمت*</label>
+                                        <input type="price" class="form-control" id="price" name="price" value="{{ part.price }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="price_with_discount">قیمت با تخفیف</label>
+                                        <input type="price_with_discount" class="form-control" id="price_with_discount" name="price_with_discount" value="{{ part.price_with_discount }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">ویرایش محصول</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

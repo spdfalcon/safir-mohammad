@@ -1,0 +1,31 @@
+/* raiting1 */
+
+/* .icon-display {
+    font-size: 2rem;
+    color: #ffcc00;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  } */
+    /* raiting2 */
+    .rating-icons {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+        gap: 5px;
+        margin-bottom: 30px;
+    }
+
+    .rating-icons i {
+        font-size: 1.6rem;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .rating-icons i:hover,
+    .rating-icons i.active {
+        color: #f5b301;
+    }
+    .text-black{
+        color: black;
+    }

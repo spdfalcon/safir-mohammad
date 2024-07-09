@@ -1,0 +1,132 @@
+{% extends "layouts/base-fullscreen.html" %}
+{% load static %}
+
+{% block title %}
+ثبت نام سفیر
+{% endblock title %}
+
+
+{% block css %}
+<style>
+       .hidden{
+              display: none;
+
+       }
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="pt-4" style="padding-top:60px">
+    <section class="">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <div style="text-align:center">
+                        {% if login_page.image %}
+                            <img src="{{ login_page.image.url }}" alt="safir" style="width:100px">
+                        {% else %}
+                            <img src="{% static 'img/safirmall-logo.png' %}" alt="safir" style="width:100px">
+                        {% endif %}
+                        
+                        <h2 class="" style="font-size:24px;font-weight:bolder;color:#241665">
+                            {{ login_page.title|default:"ثبت نام" }}
+                        </h2>
+                        <p style="text-align:center;font-size:12px;padding-bottom:10px;">
+                            {{ login_page.description|default:"برای استفاده از محصولات متنوع آموزشی سوپراپ سفیرمال، لطفا شماره موبایل خود را وارد کنید، کد تایید به این شماره پیامک خواهد شد" }}
+                        </p>
+                    </div>
+                    
+                    {% if error %}
+                    <span class="mb-0 mt-4 text-muted">
+                        <span class="alert alert-warning text-center">{{ error | safe }}</span>
+                    </span>
+                    {% endif %}
+                    
+                    <form role="form" class="register-form" id="register-form" method="post" action="{% url 'accounts:sms-signup-verification' %}">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-smartphone material-icons-name"></i></label>
+                            <input type="number" class="phone-input" name="verify_code" autofocus required value='{{ request.POST.verify_code }}' placeholder='کد تایید' oninput="this.value = this.value.slice(0, 6)"/>
+                        </div>
+                        <input type="submit" style="background-color:#241665;width:100%;font-weight:bold" name="login" id="signup" class="form-submit" value="ثبت نام کنید"/>
+                    </form>
+                    
+                    <div class="form-group form-button" style="text-align:center">
+                        <div id="timer-container" style="text-align:center; margin-top: 20px;">
+                            <span id="timer" style="font-size: 18px; color: #241665;"></span>
+                            <br>
+                            <button type="button" id="resend-link" class="hidden" style="background: none; border: none; color: #241665; text-decoration: underline; cursor: pointer;">ارسال مجدد کد</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="signup-image">
+                    <figure><img src="{% static 'login/image.png' %}" alt="sing up image"></figure>
+                    <a style="float:left;margin-top:-40px" referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=480492&Code=zpdOr144R2KB2D0s5q1gmIkhE3IhvOUR'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=480492&Code=zpdOr144R2KB2D0s5q1gmIkhE3IhvOUR' alt='' style='cursor:pointer' Code='zpdOr144R2KB2D0s5q1gmIkhE3IhvOUR'></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock content %}
+
+
+{% block javascripts %}
+<script>
+       // Function to handle form submission for resending code
+       function resendCode() {
+           var xhr = new XMLHttpRequest();
+           xhr.open('POST', '{% url "accounts:sms-signup-verification" %}', true);
+           xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+           xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+           xhr.onload = function() {
+               if (xhr.status >= 200 && xhr.status < 400) {
+                   // Request was successful, handle response if needed
+                   var response = xhr.responseText;
+                   // You can process the response here if needed
+                   // alert('کد تایید جدید ارسال شد');
+               } else {
+                   // Error handling if the request fails
+                   console.error('Request failed with status:', xhr.status);
+               }
+           };
+           xhr.onerror = function() {
+               // Error handling for network errors
+               console.error('Request failed');
+           };
+           // Send the form data (if any)
+           xhr.send('resend_code=true&phone={{ phone }}');
+       }
+   
+       var countdownTime = 120; // 2 minutes countdown
+       var timerElement = document.getElementById('timer');
+       var resendLink = document.getElementById('resend-link');
+   
+       function startCountdown() {
+           var countdownInterval = setInterval(function() {
+               var minutes = Math.floor(countdownTime / 60);
+               var seconds = countdownTime % 60;
+               var formattedTime = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+               timerElement.textContent = formattedTime;
+               countdownTime--;
+   
+               if (countdownTime < 0) {
+                   clearInterval(countdownInterval);
+                   timerElement.style.display = 'none';
+                   resendLink.classList.remove('hidden'); 
+               }
+           }, 1000);
+       }
+   
+       // Start the countdown when the page loads
+       window.onload = function() {
+           startCountdown();
+   
+           // Add click event listener to the resend link
+           resendLink.addEventListener('click', function() {
+               resendCode();
+           });
+       };
+   </script>
+   
+{% endblock javascripts %}

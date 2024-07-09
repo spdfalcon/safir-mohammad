@@ -1,0 +1,153 @@
+{% load static %}
+<div class="preloader d-none"><button class="th-btn style3 preloaderCls">غیرفعال کردن لودر</button>
+    <div class="preloader-inner"><span class="loader"></span></div>
+</div>
+<div class="sidemenu-wrapper d-none d-lg-block">
+    <div class="sidemenu-content"><button class="closeButton sideMenuCls"><i class="far fa-times"></i></button>
+        <div class="widget woocommerce widget_shopping_cart">
+            <h3 class="widget_title">سبد خرید</h3>
+            <div class="widget_shopping_cart_content">
+                {% comment %} <ul class="woocommerce-mini-cart cart_list product_list_widget">
+                    <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#"
+                            class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img
+                                src="images/product_thumb_1_1.jpg" alt="Cart Image">کیسه های کتاب پلاستیکی</a> <span
+                            class="quantity">* ۱ <span class="woocommerce-Price-amount amount"><span
+                                    class="woocommerce-Price-currencySymbol">تومان</span>۹۵,۰۰۰</span></span></li>
+                    <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#"
+                            class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img
+                                src="images/product_thumb_1_2.jpg" alt="Cart Image">ذهن جن</a> <span
+                            class="quantity">* ۱ <span class="woocommerce-Price-amount amount"><span
+                                    class="woocommerce-Price-currencySymbol">تومان</span>۸۹,۹۰۰</span></span></li>
+                    <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#"
+                            class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img
+                                src="images/product_thumb_1_3.jpg" alt="Cart Image">کتاب انرژی</a> <span
+                            class="quantity">* ۱<span class="woocommerce-Price-amount amount"><span
+                                    class="woocommerce-Price-currencySymbol">تومان</span>۷۵,۶۰۰</span></span></li>
+                    <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#"
+                            class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img
+                                src="images/product_thumb_1_4.jpg" alt="Cart Image">جامدادای</a> <span
+                            class="quantity">* ۱ <span class="woocommerce-Price-amount amount"><span
+                                    class="woocommerce-Price-currencySymbol">تومان</span>۷۲,۳۰۰</span></span></li>
+                    <li class="woocommerce-mini-cart-item mini_cart_item"><a href="#"
+                            class="remove remove_from_cart_button"><i class="far fa-times"></i></a> <a href="#"><img
+                                src="images/product_thumb_1_5.jpg" alt="Cart Image">مدادتراش</a> <span
+                            class="quantity">* ۱ <span class="woocommerce-Price-amount amount"><span
+                                    class="woocommerce-Price-currencySymbol">تومان</span>۱۰۸,۰۰۰</span></span></li>
+                </ul> {% endcomment %}
+                <p class="woocommerce-mini-cart__total total"><strong>مجموع:</strong> <span
+                        class="woocommerce-Price-amount amount"><span
+                            class="woocommerce-Price-currencySymbol">
+                        
+                        0
+                        </span> تومان</span></p>
+                <p class="woocommerce-mini-cart__buttons buttons"><a href="#"
+                        class="th-btn wc-forward">مشاهده سبد</a> <a href="#"
+                        class="th-btn checkout wc-forward">صورتحساب</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup-search-box d-none d-lg-block"><button class="searchClose"><i class="fal fa-times"></i></button>
+    <form action="{% url 'edu:packages' %}"><input type="text" name="search" value="{{ search|default:"" }}" placeholder="در جستجوی چه موضوعی هستید ؟"> <button type="submit"><i
+                class="fal fa-search"></i></button></form>
+</div>
+{% comment %}
+<div class="th-menu-wrapper">
+    <div class="th-menu-area text-center">
+         <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
+        <div class="mobile-logo" style="background-color:white !important">
+            
+        </div>
+        
+        <div class="th-mobile-menu">
+            <ul style="text-align:right;direction:rtl">
+               
+
+                <li><a href="/">صفحه اصلی</a></li>
+                <li><a href="/categories">دسته بندی ها</a></li>
+                <li><a href="/profiles">حساب کاربری</a></li>
+                <li><a href="/profiles/myedu">آموزش های من</a></li>
+                <li><a href="/profiles/factors">صورت حساب ها</a></li>
+                <li><a href="/profiles/scores">امتیاز من</a></li>
+                <li><a href="/profiles/tickets">پشتیبانی</a></li>
+                <li><a href="/about">درباره ما</a></li>
+                <li>
+                    {% if user.is_authenticated %}
+                                        <a href="{% url 'accounts:logout' %}" class="text-danger" style="font-size:11px">خروج از حساب</a>
+                                    {% else %}
+                                    
+                                    {% endif %}
+                </li>
+                
+            </ul>
+        </div> 
+    </div>
+</div>
+{% endcomment %}
+<header class="th-header header-layout1" style="border-bottom:1px solid #d7d7d7; background-color: #000B85">
+    <div class="container">
+        <div class="sticky-wrapper">
+            <div class="container th-container2">
+                <div class="menu-area">
+                    <div style=" background-color: #000B85" class="row align-items-center my-auto justify-content-between header-main-m">
+                        <div class="col-auto">
+                            <nav class="main-menu d-none d-lg-inline-block">
+                                <ul style="text-align:right;direction:rtl">
+                                    <li><a href="/" class="text-white">صفحه اصلی</a></li>
+                                    <li><a href="/categories" class="text-white">دسته بندی ها</a></li>
+                                    <li><a href="/others" class="text-white">سایر مجموعه و پکیچ ها</a></li>
+                                    {% comment %} <li><a href="/profiles/myedu">آموزش های من</a></li>
+                                    <li><a href="/profiles/factors">صورت حساب ها</a></li>
+                                    <li><a href="/profiles/scores">امتیاز من</a></li>
+                                    <li><a href="/profiles/tickets">پشتیبانی</a></li>
+                                    <li><a href="{% url 'cart:cart_detail' %}">سبد خرید</a></li>
+                                    <li><a href="/about">درباره ما</a></li> {% endcomment %}
+                                    {% comment %} <li>
+                                        {% if user.is_authenticated %}
+                                            <a href="{% url 'accounts:logout' %}" class="text-danger" style="font-size:11px">خروج از حساب</a>
+                                        {% else %}
+                                        
+                                        {% endif %}
+                                    </li> {% endcomment %}
+                                    
+                                </ul>
+                            </nav>
+                                  
+                            <a href="/profiles" style="font-size:22px" class="m-1 text-white">
+                                <i class="fa fa-user"></i>
+                               
+                            </a> &nbsp; &nbsp;
+                            <a href="/cart/cart_detail" style="font-size:22px" class="m-1 text-white">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="font-12" style="color:white !important; position: relative; top: -15px">{{ cart.get_count }}</span>
+                            </a>
+                            
+                        </div>
+    
+                        <div class="col-auto" style="">
+                            <div class="header-logo"><a href="/"><img style="" class="safir-logo" src="{% static 'logo-red.png' %}"
+                                        alt="SAFIR"></a></div>
+                        </div>
+                        <div class="col-auto d-none d-xl-block text-white">
+                            <div class="header-button">
+                                {% if user.is_authenticated %}
+                                    <a href="/profiles" style="background-color: #525c63;" class="th-btn ml-25 text-white">
+                                        <i class="fa fa-user pl-5"></i>
+                                        {% if get_full_name %}
+                                            {{ request.user.get_full_name. }}
+                                        {% else %}
+                                            حساب کاربری 
+                                        {% endif %}                                        
+                                    </a>
+                                   
+                                {% else %}
+                                    <a href="/accounts/login" style="background-color: #eee" class="th-btn ml-25 text-dark">ورود/ثبت نام</a>
+                                {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="logo-bg" data-bg-src="images/logo-bg-3.png"></div>
+        </div>
+    </div>
+</header>

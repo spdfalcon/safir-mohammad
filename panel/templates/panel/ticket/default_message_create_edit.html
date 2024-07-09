@@ -1,0 +1,87 @@
+    {% extends 'layouts/base_panel.html' %}
+    {% load static %}
+
+    {% block title %}
+    {% if form.instance.pk %}
+    ویرایش پیام پیشفرض
+    {% else %}
+    ایجاد پیام پیشفرض
+    {% endif %}
+    {% endblock title %}
+
+
+    {% block content %}
+
+    <div class="container-fluid">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">
+                {% if form.instance.pk %}
+                ویرایش پیام پیشفرض
+                {% else %}
+                ایجاد پیام پیشفرض
+                {% endif %}
+                </h3>
+                
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% comment %} Form Errors {% endcomment %}
+                        {% if form.errors %}
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% comment %} /Form Errors {% endcomment %}
+                    <div class="modal-body">
+                        <div class="row">
+                            
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="body">متن پیام*</label>
+                                    <textarea class="form-control ckeditor" style="height:100px" id="body" name="body">{{ form.instance.body }}</textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">
+                            {% if form.instance.pk %}
+                            ویرایش
+                            {% else %}
+                            ایجاد
+                            {% endif %}
+                            </button>
+                        </div>
+                        
+                    </div>
+                </form>
+
+                
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    {% endblock content %}

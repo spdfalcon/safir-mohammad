@@ -1,0 +1,63 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load jalali_tags %}
+
+{% block title %}
+    مجموعه های من
+    {{ request.user.get_full_name|default:"حساب من" }}
+{% endblock %}
+
+{% block css %}
+<style>
+    /* Add your custom CSS here */
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-4 mb-4" style="height:100%">
+    {% if request.GET.message %}
+        <div class="container">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ request.GET.message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row mx-auto" style="width:95%">
+        <p class="alert alert-info text-center">
+            مجموعه های من
+        </p>
+
+        <div class="row mx-auto mt-5">
+            {% for order in orders %}
+                {% for item in order.items.all %}
+                    <div class="col-12 col-lg-12 pt-3">
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ item.get_detail_url }}">
+                                <div class="card d-flex align-items-center p-1" style="width:100%; height:60px; border-radius:20px;">
+                                    <a href="{{ item.get_detail_url }}" class="d-flex align-items-center my-auto" style="width: 100%; text-decoration: none; color: inherit;">
+                                        <img src="{{ item.get_image_url }}" alt="خروج از حساب" style="width:40px; height: auto;">
+                                        <span style="margin-right: auto; padding-left: 10px;font-size:14px">
+                                            {{ item.get_title }}({{ item.calculate_remaining_days }} روز)
+                                        </span>
+                                    </a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% include 'profiles/footer.html' %}
+
+{% endblock content %}
+
+{% block javascripts %}
+{% endblock javascripts %}

@@ -1,0 +1,109 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load jalali_tags %}
+
+{% block title %}
+    لیست علاقه مندی ها
+{{ request.user.get_full_name|default:"لیست علاقه مندی ها" }}
+{% endblock %}
+
+
+{% block css %}
+
+<style>
+	
+
+</style>
+        
+{% endblock css %}
+
+
+{% block content %}
+
+<div class="container mt-4 mb-4" style="height:100%">
+
+	<div class="row mx-auto" style="width:95%">
+		
+		<p class="alert alert-info text-center">
+           علاقه مندی های من
+        </p>
+		
+		<div class="row mx-auto mt-5">
+			  
+			{% for item in wishlist.get_all_items %}
+				<div class="col-12 col-lg-12">
+					<div class="d-flex justify-content-center">
+						<a href="">
+							<div>
+								<a class="btn btn-sm btn-danger mt-3" href="" data-toggle="modal"
+									data-target="#item_{{ item.id }}">
+									حذف
+								</a>                                    
+							</div>
+
+							{% comment %} modals {% endcomment %}
+							<div class="modal fade" id="item_{{ item.id }}" tabindex="-1"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">آیا از
+											حذف ایتم مشخص شده مطمئن هستید؟</h5>
+									</div>
+									<div class="modal-body">
+										<span class="text-dark">
+											{% if item.package %}
+												{{ item.package.title }}
+											{% else %}
+												{{ item.course.title }}
+											{% endif %}
+										</span>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary ml-1"
+											data-dismiss="modal">خیر</button>
+										<a href="{% url 'wishlist:delete_item' item.id %}"
+											class="btn btn-danger">بله حذف شود</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+							<div class="card d-flex align-items-center p-1" style="width:100%; height:60px; border-radius:20px;">
+								<a href="{% if item.package %} {% url 'edu:package_detail' item.package.slug %} {% elif item.course %} {% url 'edu:course_detail' item.course.slug %} {% else %} {% url 'edu:part_detail' item.part.slug %} {% endif %}" class="d-flex align-items-center my-auto" style="width: 100%; text-decoration: none; color: inherit;">
+									<img src="{% if item.package %} {{ item.package.image.url }} {% elif item.course %}  {{ item.course.image.url }} {% else %} {{ item.part.image.url }} {% endif %}" alt="" style="width:40px; height: auto;">
+									<span style="margin-right: auto; padding-left: 10px;font-size:14px">
+										{% if item.package %}
+											{{ item.package.title }}
+										{% elif item.course %}
+											{{ item.course.title }}
+										{% else %}
+											{{ item.part.title }}
+										{% endif %}
+									</span>
+								</a>
+								
+							</div>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		
+	</div>
+</div>
+
+
+
+{% endblock content %}
+
+
+
+{% block javascripts %}
+ <!-- jQuery -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <!-- Bootstrap JS -->
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

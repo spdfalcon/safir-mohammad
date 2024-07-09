@@ -1,0 +1,98 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+ایجاد کد تخفیف ـ 
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">ایجاد کد تخفیف جدید</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</span>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="code">کد*</label>
+                                    <input type="text" class="form-control" name="code" id="code" value="{{ request.POST.code }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="value">مقدار تخفیف*</label>
+                                    <input type="text" class="form-control" name="value" id="value" value="{{ request.POST.value }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="is_active">وضعیت فعال بودن*</label>
+                                    <select class="form-control" id="is_active" name="is_active">
+                                        <option value="True" {% if request.POST.is_active == 'True' %}selected{% endif %}>فعال</option>
+                                        <option value="False" {% if request.POST.is_active == 'False' %}selected{% endif %}>غیرفعال</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="start_date">تاریخ شروع تخفیف*</label>
+                                    <input class="form-control text-center" type="datetime-local" placeholder="تاریخ شروع تخفیف" name="start_date" value="{{ request.POST.start_date }}" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="end_date">تاریخ پایان تخفیف*</label>
+                                    <input class="form-control text-center" type="datetime-local" placeholder="تاریخ پایان تخفیف" name="end_date" value="{{ request.POST.end_date }}" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="categories">دسته‌بندی*</label>
+                                    <select class="form-control" id="categories" name="categories[]" multiple>
+                                        {% for category in categories %}
+                                            <option value="{{ category.pk }}">{{ category.title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">ایجاد کد تخفیف</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

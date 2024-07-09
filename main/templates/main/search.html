@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+سفیر - آموزش آنلاین زبان تخصصی
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="space-bottom why-area-4" style="height:100%">
+    <div class="container">
+        <div class="row align-items-center mt-4">
+            <form action="{% url 'main:search' %}" method="get" class="search-box mb-5">
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+                <input type="text" class="search-input home-search-input" name="search" value="{{ search|default:'' }}" placeholder="جستجو...">
+            </form>
+        </div>
+        {% if search_result %}
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <h2>
+                        نتایج جستجو
+                    </h2>
+                </div>
+            </div>
+            <div class="row mb-5">
+                {% for object in search_result %}
+                <div class="col-4 col-lg-3 text-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="shadow mb-2" style="">
+                            {% if object.image %}
+                                <a href="{% if object.is_course %}{% url 'edu:course_detail'  object.slug %}{% else %} {% url 'edu:package_detail'  object.slug %} {% endif %}">
+                                    <img src="{{ object.image.url }}" alt="{{ object.title }}" class="" style="width:60px; margin:auto; display:block;">
+                                </a>
+                            {% else %}
+                                <a href="{% if object.is_course %}{% url 'edu:course_detail'  object.slug %}{% else %} {% url 'edu:package_detail'  object.slug %} {% endif %}">
+                                    <img src="" alt="{{ object.title }}" style="width:60px; margin:auto; display:block;">
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="font-12 font-weight-bold mt-1">
+                        <a href="{% if object.is_course %}{% url 'edu:course_detail'  object.slug %}{% else %} {% url 'edu:package_detail'  object.slug %} {% endif %}">
+                            {{ object.title }}
+                        </a>
+                    </p>
+                </div>  
+                
+                {% empty %}
+                <div class="col-md-12">
+                    <p class="alert alert-info text-center">
+                            {% comment %} مطابق با عبارت جستجو شده، دسته بندیی در سوپر اپلیکیشن سفیر موجود نیست! {% endcomment %}
+                        از طریق نوار جستجوی بالا محصول مد نظر خود را پیدا کنید.
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}

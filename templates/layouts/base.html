@@ -1,0 +1,180 @@
+{% load static %}
+
+<html lang="fa" dir="rtl" class="np-js">
+
+    <head>
+        <title>
+            سوپر اپ سفیر - 
+            {% block title %}{% endblock title %}
+        </title>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+        {% block meta %}
+            <!-- Add your meta tags here if needed -->
+        {% endblock meta %}
+    
+        {% block seo %}
+        <meta property="og:title" content="سوپر اپ سفیر">
+        {% endblock seo %}
+
+
+        <meta name="author" content="SAFIR">
+        <meta name="description" content="سفیر- آموزش زبان انگلیسی از صفر تا صد">
+        <meta name="keywords" content="آموزشگاه آنلاین سفیر">
+        <meta name="robots" content="INDEX,FOLLOW">
+        <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+        <link rel="icon" type="image/png" sizes="96x96" href="{% static 'icon-app-safirmall.jpg' %}">
+
+        <meta name="enamad" content="7796018" />
+        
+        <link rel="stylesheet" href="{% static 'main/css/app.min.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/bootstrap.rtl.min.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/custom.css' %}">
+        <link rel="stylesheet" href="{% static 'main/fonts/iranSans/index.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/search-box.css' %}">
+        <link rel="stylesheet" href="{% static 'main/css/rating.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-icons/font/bootstrap-icons.min.css' %}">
+        
+        
+        <!-- jalalidatepicker input -->
+        <link rel="stylesheet" href="{% static 'plugins/jalalidatepicker/jalalidatepicker.min.css' %}">
+
+
+
+        {% block css %}
+        
+        {% endblock css %}
+    </head>
+
+    <body>
+       
+
+        <div class="wrapper">
+            {% include 'includes/header.html' %}
+
+            <!-- start modal-->
+            <div id="myModal" class="modal">
+                <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+                <div class="modal-container bg-white w-12/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                <div class="modal-content py-4 text-left px-6 h-96">
+                    <div class="flex justify-between pb-3">
+                        <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-6">
+                            <form method='GET'>
+                                <div class="search-box">
+                                <input type="search" class="modal-search-input" placeholder="جستجو کنید ..." name='search' onkeyup="search()">
+                                <button type='submit' class="modal-search-button search-button d-flex">
+                                    <i class='fas fa-search text-blue align-self-center'></i>
+                                </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-1">
+                            <div id="modalClose" class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+                            <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 18 18">
+                                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                            </svg>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="searchResults"  class="container-fluid">
+                    <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="packages-tab" data-toggle="tab" href="#packages" role="tab" aria-controls="packages" aria-selected="true">
+                            دسته بندی
+                            <span id="packagesCount">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="false">
+                            مجموعه
+                            <span id="coursesCount"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">
+                            محصول
+                            <span id="partsCount"></span>
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
+                    <div class="col-12">
+                        <!-- Add Bootstrap tab content -->
+                        <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="packages" role="tabpanel" aria-labelledby="packages-tab">
+                            <div id="searchResultsPackages" class="tab-results scroll-box pt-4">
+                            <div class="pr-5">{% comment %} comes from js{% endcomment %}</div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+                            <div id="searchResultsCourses" class="tab-results scroll-box pt-4">
+                            <div class="pr-5">{% comment %} comes from js{% endcomment %}</div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="parts" role="tabpanel" aria-labelledby="parts-tab">
+                            <div id="searchResultsParts" class="tab-results scroll-box pt-4">
+                            <div class="pr-5">{% comment %} comes from js{% endcomment %}</div>
+                            </div>
+                        </div>
+                    
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- end modal-->
+
+            {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show d-flex flex-row gap-5" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span class="fa-solid fa-times text-danger" aria-hidden="true"></span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+            {% block content %}
+                
+            {% endblock content %}
+
+        
+            {% include 'includes/footer.html' %}
+       
+        </div>
+        
+        <script src="{% static 'main/js/jquery-3.6.0.min.js' %}"></script>
+        <script src="{% static 'main/js/app.min.js' %}"></script>
+        <script src="{% static 'main/js/main.js' %}"></script>
+        <script src="{% static 'main/js/search-box.js' %}"></script>
+        <script src="{% static 'main/js/rating.js' %}"></script>
+        
+        {% include 'includes/scripts.html' %}
+        
+        <!-- Bootstrap JavaScript (requires jQuery) -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+        <!-- Load JavaScript files -->
+        {% block javascripts %}
+        {% endblock javascripts %}
+    
+    </body>
+
+</html>

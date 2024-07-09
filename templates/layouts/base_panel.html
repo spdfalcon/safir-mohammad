@@ -1,0 +1,329 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html direction="rtl" dir="rtl" style="direction: rtl">
+<!--begin::Head-->
+
+<head>
+    <base href="" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="enamad" content="198045" />
+    <title>
+        {% block title %}
+        
+        {% endblock title %}
+        آموزشگاه سفیر|Safir
+    </title>
+
+    {% comment %} SEO {% endcomment %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+
+    {% comment %} Open Graph / Facebook {% endcomment %}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+    {% comment %} Twitter {% endcomment %}
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+
+    <meta name="enamad" content="7796018" />
+
+    {% comment %} Favicon icon {% endcomment %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/safirmall-logo.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/safirmall-logo.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/safirmall-logo.png' %}">
+
+    {% block seo %}
+   
+    {% endblock seo %}
+
+    <meta name="robots" content="noindex" />
+
+    {% block meta %}
+    {% endblock meta %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bulma.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'panel/css/adminlte.min.css' %}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'panel/iCheck/flat/blue.css' %}">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="{% static 'panel/morris/morris.css' %}">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="{% static 'panel/jvectormap/jquery-jvectormap-1.2.2.css' %}">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{% static 'panel/datepicker/datepicker3.css' %}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{% static 'panel/daterangepicker/daterangepicker-bs3.css' %}">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="{% static 'panel/timepicker/bootstrap-timepicker.min.css' %}">
+
+
+    <link href="{% static 'panel/select2/select2.css' %}" rel="stylesheet" />
+
+
+    <link href="{% static 'panel/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet" />
+    <!-- Bootstrap -->
+
+    <link href="{% static 'panel/bootstrap-wysihtml5/bootstrap3-wysihtml5.css' %}" rel="stylesheet" />
+    <link href="{% static 'panel/css/bootstrap-rtl.min.css' %}" rel="stylesheet" />
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- bootstrap rtl -->
+    <!-- template rtl version -->
+    <link rel="stylesheet" href="{% static 'panel/css/custom-style.css' %}">
+
+    <link rel='stylesheet' id='elementor-icons-fa-regular-css' href="{% static 'fonts/iranSans/index.css' %}" type='text/css' media='all' />
+
+    
+    <link rel="stylesheet" href="{% static 'panel/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/font-awesome/css/font-awesome.css.map' %}">
+    <link rel="stylesheet" href="{% static 'panel/font-awesome/css/font-awesome.min.css' %}">
+    
+
+   
+    
+    {% block style %}
+
+    {% endblock style %}
+
+    <style>
+        .ck-content {
+            height: 500px !important;
+        }
+
+        .dt-search input {
+            width: 100%;
+            padding-left: 6.75em;
+            font-family: 'iranSans';
+        }
+        
+        .dt-length {
+            width: 100%;
+            text-align: left;
+            
+        }
+        
+        .dt-length label {
+            padding: 14px;
+            margin-right: 10px;
+        }
+
+        {% comment %} for delete modal {% endcomment %}
+        @media screen and (min-width: 481px){
+            .modal {
+                width: 50%;
+                margin: 0 auto; 
+            }
+        }
+
+    </style>
+
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+        {% include "includes/sidebar_panel.html" %}
+
+         <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+           
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content p-4">
+                {% if messages %}
+                    <div class="container">
+                        {% for message in messages %}
+                        <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                {% block content %}
+                {% endblock content %}
+            </section>
+            <!-- /.content -->
+        </div>
+
+        <!-- /.content-wrapper -->
+        <footer class="main-footer text-left">
+            حق کپی رایت تمام محتوای موجود در این اپلیکیشن برای موسسه زبان سفیر است.  
+        </footer>
+
+    </div>
+
+
+    <script src="{% static 'panel/select2/select2.js' %}"></script>
+    
+    <!-- jQuery -->    <!-- jQuery UI 1.11.4 -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{% static 'panel/jquery.js' %}"></script>
+    
+    <!-- Resolve conflict in jQue text-left">
+            ry UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+
+    <!-- Bootstrap 4 -->
+    <!-- Morris.js charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="{% static 'panel/morris/morris.min.js' %}"></script>
+    <!-- Sparkline -->
+    <script src="{% static 'panel/sparkline/jquery.sparkline.min.js' %}"></script>
+    <!-- jvectormap -->
+    <script src="{% static 'panel/jvectormap/jquery-jvectormap-1.2.2.min.js' %}"></script>
+    <script src="{% static 'panel/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{% static 'panel/knob/jquery.knob.js' %}"></script>
+    <!-- daterangepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="{% static 'panel/daterangepicker/daterangepicker.js' %}"></script>
+    <!-- datepicker -->
+    <script src="{% static 'panel/datepicker/bootstrap-datepicker.js' %}"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="{% static 'panel/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+    <!-- Slimscroll -->
+    <script src="{% static 'panel/slimScroll/jquery.slimscroll.min.js' %}"></script>
+    <!-- FastClick -->
+    <!-- AdminLTE App -->
+    <script src="{% static 'panel/js/adminlte.js' %}"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="{% static 'panel/js/pages/dashboard.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/fontawesome.min.css"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- DataTable -->
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.bulma.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- Persian Datepicker JS -->
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@0.4.5/dist/js/persian-date.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@0.4.5/dist/js/persian-datepicker.min.js"></script>
+    <!-- Load CKEditor from CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+    <!-- jalalidatepicker input -->
+    <script src="{% static 'plugins/jalalidatepicker/jalalidatepicker.min.js' %}"></script>
+
+    <!-- For Realtime Date and Time -->
+    <script src="{% static 'plugins/jdate.js' %}"></script>
+
+    
+    <script>
+        jalaliDatepicker.startWatch();
+    </script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.ckeditor'), {
+                language: {
+                    ui: 'fa',
+                    content: 'fa'
+                }
+            })
+            .then(editor => {
+                editor.ui.view.editable.element.parentElement.classList.add('ckeditor-custom-height');
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    {% comment %} start script for datatable {% endcomment %}
+    <script>
+        $(document).ready(function() {
+            $('#sortable-table').DataTable({
+                "dom": '<"row"<"col-md-6"f><"col-md-6 text-end"l>>tip',
+                "language": {
+                    "search": "",
+                    "searchPlaceholder": "جستجو . . .",
+                    "zeroRecords": "رکوردی پیدا نشد",
+                    "lengthMenu": "نمایش: _MENU_",
+                    "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                    "infoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                    "infoFiltered": "(فیلتر شده از مجموع _MAX_ رکورد)",
+                    "emptyTable": "اطلاعاتی وجود ندارد.",
+                    "paginate": {
+                        "first": "ابتدا",
+                        "last": "انتها",
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "responsive": true,
+                "lengthChange": true,
+                "lengthMenu": [10, 25, 50, 100],
+                "pagingType": "full_numbers",
+                "scrollX": true,
+                "order": [],
+                "autoWidth": false,
+                
+            });
+        });
+        
+    </script>
+    {% comment %} end of script for datatable {% endcomment %}
+
+    <script>
+        var sortable = new Sortable(document.getElementById('sortable-table').querySelector('tbody'), {
+            animation: 150,
+            onUpdate: function (evt) {
+                var newIndex = sortable.toArray();
+                updateRowIndex(newIndex);
+            }
+        });
+    
+        function updateRowIndex(newIndex) {
+            var formData = new FormData();
+            var modelName = document.getElementById('#modelName').value;
+            formData.append('index', JSON.stringify(newIndex));
+            formData.append('modelName', modelName);
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}'); 
+    
+            fetch('{% url 'panel:update_index' %}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('index updated successfully');
+                } else {
+                    console.error('Failed to update index');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    
+    {% block js %} {% endblock js %}
+</body>
+
+</html>

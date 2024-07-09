@@ -1,0 +1,120 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+ویرایش سفارش ـ 
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">ویرایش سفارش {{ order }}</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="card-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+        
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="user">کاربر*</label>
+                                        <select class="form-control" id="user" name="user">
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}" {% if user == order.user %}selected{% endif %}>
+                                                    {{ user }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>  
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="package_ids">دسته بندی‌ها</label>
+                                        <select class="form-control" id="package_ids" name="package_ids" multiple>
+                                            {% for package in packages %}
+                                                <option value="{{ package.id }}" {% if package.id in order|get_selected_package_ids %}selected{% endif %}>
+                                                    {{ package.title }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="course_ids">مجموعه‌ها</label>
+                                        <select class="form-control" id="course_ids" name="course_ids" multiple>
+                                            {% for course in courses %}
+                                                <option value="{{ course.id }}" {% if course.id in order|get_selected_course_ids %}selected{% endif %}>
+                                                    {{ course.title }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="part_ids">محصول</label>
+                                        <select class="form-control" id="part_ids" name="part_ids" multiple>
+                                            {% for part in parts %}
+                                                <option value="{{ part.id }}" {% if part.id in order|get_selected_part_ids %}selected{% endif %}>
+                                                    {{ part.title }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="is_paid">وضعیت پرداخت*</label>
+                                        <select class="form-control" id="is_paid" name="is_paid">
+                                            <option value="True" {% if order.is_paid %}selected{% endif %}>پرداخت شده</option>
+                                            <option value="False" {% if not order.is_paid %}selected{% endif %}>پرداخت نشده</option>
+                                        </select>
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="paid_at">تاریخ پرداخت</label>
+                                        <input class="form-control text-center" type="datetime-local" placeholder="تاریخ پرداخت" name="paid_at" value="{{ order.paid_at }}" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">ویرایش سفارش</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

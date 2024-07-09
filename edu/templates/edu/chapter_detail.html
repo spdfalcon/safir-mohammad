@@ -1,0 +1,77 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+محصولی فصل {{ chapter.title }}
+{% endblock title %}
+
+{% block css %}
+
+<style>
+   
+
+</style>
+
+{% endblock css %}
+
+
+
+{% block content %}
+
+<div class="breadcumb-wrapper" data-bg-src="{% static 'main/images/breadcumb-bg.jpeg' %}" data-overlay="title" data-opacity="8">
+    <div class="breadcumb-shape" data-bg-src="{% static 'main/images/breadcumb_shape_1_1.png' %}"></div>
+    <div class="shape-mockup breadcumb-shape2 jump d-lg-block d-none" data-right="30px" data-bottom="30px"><img
+            src="{% static 'main/images/breadcumb_shape_1_2.png' %}" alt="shape"></div>
+    <div class="shape-mockup breadcumb-shape3 jump-reverse d-lg-block d-none" data-left="50px" data-bottom="80px">
+        <img src="{% static 'main/images/breadcumb_shape_1_3.png' %}" alt="shape"></div>
+    <div class="container">
+        <div class="breadcumb-content text-center">
+            <h1 class="breadcumb-title">
+                فصل {{ chapter.title }}
+            </h1>
+            <br>
+            <br>
+            <p class="text-white text-center">
+                شامل {{ chapter.parts.count }} محصول
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="space">
+    <div class="container">
+        <div class="row">
+            {% for part in chapter.parts.all %}
+            <div class="col-md-6 col-xl-4">
+                <div class="video-course">
+                    <div class="course-img"><img src="{{ part.image.url }}" alt="{{ part.title }}" style="height: 190px;">  
+                        <span
+                            class="tag">
+                            <i class="fal fa-clock"></i> {{ part.part_time }}
+                        </span> 
+
+                        <span
+                            class="tag tag-2">
+                            محصول {{ part.part_index }}
+                        </span> 
+                        
+                        <a href="#"
+                            class="play-btn popup-video"><i class="fas fa-play"></i></a></div>
+                    <div class="course-content">
+                        <h3 class="course-title"><a href="{% url 'edu:part_detail' part.slug %}">
+                            {{ part.title }}
+                        </a></h3>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+           
+            
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock content %}

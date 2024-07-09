@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load jalali_tags %}
+
+{% block title %}تیکت های شما 
+{{ request.user.get_full_name|default:"حساب من" }}
+
+{% endblock %}
+
+
+{% block css %}
+
+        
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    <a href="{% url 'profiles:ticket_create' %}" class="btn btn-dark w-100">ثبت تیکت جدید</a>
+	<div class="row">
+		<div class="p-4">
+            {% if tickets %}
+            {% for ticket in tickets %}
+                <div class="card card-body mt-3">
+                    <div class="ticket-info" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="user-name" style="font-weight: bold;">
+                            {{ ticket.title }}
+                        </div>
+                        <div class="ticket-title">
+                            {{ ticket.user.get_full_name }}
+                        </div>
+                    </div>
+                    <hr>
+                    <p style="font-size:14px">
+                        {{ ticket.description|safe }}
+                    </p>
+                    <a href="{% url 'profiles:ticket_detail' ticket.id %}">مشاهده</a>
+                    <hr>
+                    <p style="font-size:14px">
+                        ایجاد شده در : {{ ticket.get_date_created }}- وضعیت : {{ ticket.get_status }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                همه چیز آرومه!
+                <br>
+                هیچ درخواستی ندارید
+            </div>
+        {% endif %}
+        </div>
+	</div>
+</div>
+{% include 'profiles/footer.html' %}
+<br><br>
+{% endblock content %}

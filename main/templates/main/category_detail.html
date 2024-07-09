@@ -1,0 +1,106 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+سفیر - آموزش آنلاین زبان تخصصی
+{% endblock title %}
+
+{% block css %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<style>
+    footer{
+        position:absolute;
+        bottom:0px;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+
+<section style="padding-bottom: 200px;" class="pt-4">
+    <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="course-tab" data-toggle="tab" href="#course" role="tab" aria-controls="course" aria-selected="false">مجموعه</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="part-tab" data-toggle="tab" href="#part" role="tab" aria-controls="part" aria-selected="false">محصول</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="course" role="tabpanel" aria-labelledby="course-tab">
+                <div class="row pt-4">
+                    {% for course in courses %}
+                        <div class="col-4 col-lg-3 text-center">
+                            <div class="d-flex justify-content-center">
+                                <div class="shadow" style="">
+                                    {% if course.image %}
+                                        <a href="{% url 'edu:course_detail' course.slug %}">
+                                            <img src="{{ course.image.url }}" alt="{{ course.title }}" style="width:60px; margin:auto; display:block;">
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'edu:course_detail' course.slug %}">
+                                            <img src="" alt="{{ course.title }}" style="width:60px; margin:auto; display:block;">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <p class="font-12 font-weight-bold mt-1">
+                                <a href="{% url 'edu:course_detail' course.slug %}">
+                                    {{ course.title }}
+                                </a>
+                            </p>
+                        </div>  
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="part" role="tabpanel" aria-labelledby="part-tab">
+                <div class="row pt-4">
+                    {% for part in parts %}
+                        <div class="col-4 col-lg-3 text-center">
+                            <div class="d-flex justify-content-center">
+                                <div class="shadow" style="">
+                                    {% if part.image %}
+                                        <a href="{% url 'edu:part_detail' part.slug %}">
+                                            <img src="{{ part.image.url }}" alt="{{ part.title }}" style="width:60px; margin:auto; display:block;">
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'edu:part_detail' part.slug %}">
+                                            <img src="" alt="{{ part.title }}" style="width:60px; margin:auto; display:block;">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <p class="font-12 font-weight-bold mt-1">
+                                <a href="{% url 'edu:part_detail' part.slug %}">
+                                    {{ part.title }}
+                                </a>
+                            </p>
+                        </div>  
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block js %}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Initialize Bootstrap tab -->
+<script>
+    $(document).ready(function(){
+        $('#myTab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+</script>
+{% endblock %}

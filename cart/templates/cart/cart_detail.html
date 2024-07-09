@@ -1,0 +1,96 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+    سبد خرید | سفیر
+{% endblock %}
+
+{% block content %}
+    <!-- shopping cart area start -->
+    {% if cart %}
+        <main class="cart-page default space-top-30">
+            <div class="container">
+                <div class="row">
+                    <div class="cart_content col-xl-12 col-lg-12 col-md-12 pt-1">
+                        <header class="card-header p-5">
+                            <h3 class="card-title text-center"><span>سبد خرید شما</span></h3>
+                        </header>
+                        <div class="table-responsive default">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" colspan="1" class="text-center">محصول</th>
+                                        <th scope="col" class="text-center">قیمت</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in cart %}
+                                        <tr class="cart_item">
+                                            <td>
+                                                <a href="{% url 'cart:item_clear' item.product_id item.product_type %}">
+                                                    <i class="fa fa-times" aria-hidden="true" style="position:relative !important"></i>
+                                                </a>
+                                                <img src="{{ item.product_image_url }}" alt="{{ item.product_title }}" class="img-fluid w-25 px-5" />
+                                                {% if item.product_type == 'package' %}
+                                                    <a href="{% url 'edu:package_detail' item.product_slug %}" class="pl-5">
+                                                        {{ item.product_title }} {% if item.product_type == "package" %}(دسته بندی){% else %}(مجموعه) {% endif %}
+                                                    </a>
+                                                {% elif item.product_type == 'course' %}
+                                                    <a href="{% url 'edu:course_detail' item.product_slug %}" class="pl-5">
+                                                        {{ item.product_title }} {% if item.product_type == "package" %}(دسته بندی){% else %}(مجموعه) {% endif %}
+                                                    </a>
+                                                {% elif item.product_type == 'part' %}
+                                                    <a href="{% url 'edu:part_detail' item.product_slug %}" class="pl-5">
+                                                        {{ item.product_title }} {% if item.product_type == "package" %}(دسته بندی){% else %}(مجموعه) {% endif %}
+                                                    </a>
+                                                {% endif %}
+                                                
+                                            </td>
+                                            <td>
+                                                <div class="cart_price px-5">
+                                                    <ins><span>
+                                                        {{ item.price|split_price|default:"قیمت در دسترس نیست" }}
+                                                        <span>تومان</span></span></ins>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="cart-page-content col-xl-12 col-lg-12 col-md-12">
+                        <div class="row cart_details">
+                            <div class="cart-page-aside col-xl-12 col-lg-12 col-md-12 divider_details">
+                                <table class="table table_details">
+                                    <tbody>
+                                        <tr>
+                                            <td>قیمت کل سفارش:</td>
+                                            <td class="text-center">{{ cart.get_total_price|split_price|default:"قیمت در دسترس نیست"  }}<span>تومان</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a class="btn btn-danger w-50" href="{% url 'cart:cart_clear' %}">پاک کردن کل سبد خرید</a></td>
+                                            <td><a class="btn btn-success w-100" href="{% url 'order:order_create' %}">مرحله بعدی</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    {% else %}
+        <div class="row shadow shadow-lg mb-5 p-3 border border-gray border-2 rounded-4 w-75 mx-auto">
+            <div class="col m-2 text-center mx-auto p-2">
+                <div class="alert alert-secondary" role="alert">
+                    <h4 class="alert-heading  text-dark">سبد خرید شما خالی است!</h4>
+                    <p class="text-dark">برای خرید به بخش محصول مراجعه کنید</p>
+                    <a href="{% url 'main:home' %}" class="btn btn-secondary">خانه</a>
+                    <a href="{% url 'edu:packages' %}" class="btn btn-success px-5">دسته بندی</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

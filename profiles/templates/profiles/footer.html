@@ -1,0 +1,184 @@
+{% load static %}
+
+<div class="row mx-auto text-center">
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="/profiles/factors" class="my-auto">
+                <img src="{% static 'main/images/icons/money.png' %}" alt="صورت حساب ها" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="/profiles/factors">
+                صورت حساب ها
+            </a>
+        </p>
+        {% comment %} <hr style="width:50%; margin:auto;">
+        <span class="category-list_text">{{ category.packages.count }} دسته بندی</span>
+        <a href="{% url 'edu:packages' %}?category_slug={{ category.slug }}" class="icon-btn"><i class="fas fa-arrow-right"></i></a> {% endcomment %}
+    </div>
+
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="/profiles/scores" class="my-auto">
+                <img src="{% static 'main/images/icons/coin.png' %}" alt="امتیاز ها" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="/profiles/scores">
+                امتیاز های من
+            </a>
+        </p>
+    </div>   
+
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="/profiles/tickets" class="my-auto">
+                <img src="{% static 'main/images/icons/headphone.png' %}" alt="پشتیبانی" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="/profiles/tickets">
+              پشتیبانی
+            </a>
+        </p>
+        {% comment %} <hr style="width:50%; margin:auto;">
+        <span class="category-list_text">{{ category.packages.count }} دسته بندی</span>
+        <a href="{% url 'edu:packages' %}?category_slug={{ category.slug }}" class="icon-btn"><i class="fas fa-arrow-right"></i></a> {% endcomment %}
+    </div>   
+
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="/about" class="my-auto">
+                <img src="{% static 'main/images/icons/about.png' %}" alt="صورت حساب ها" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="/about">
+                درباره ما
+            </a>
+        </p>
+        {% comment %} <hr style="width:50%; margin:auto;">
+        <span class="category-list_text">{{ category.packages.count }} دسته بندی</span>
+        <a href="{% url 'edu:packages' %}?category_slug={{ category.slug }}" class="icon-btn"><i class="fas fa-arrow-right"></i></a> {% endcomment %}
+    </div>
+
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="/contact" class="my-auto">
+                <img src="{% static 'main/images/icons/phone.png' %}" alt="امتیاز ها" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="/contact">
+                تماس با ما
+            </a>
+        </p>
+        {% comment %} <hr style="width:50%; margin:auto;">
+        <span class="category-list_text">{{ category.packages.count }} دسته بندی</span>
+        <a href="{% url 'edu:packages' %}?category_slug={{ category.slug }}" class="icon-btn"><i class="fas fa-arrow-right"></i></a> {% endcomment %}
+    </div>   
+
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="/rules" class="my-auto">
+                <img src="{% static 'main/images/icons/rules.png' %}" alt="پشتیبانی" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="/rules">
+              قوانین و مقررات
+            </a>
+        </p>
+        {% comment %} <hr style="width:50%; margin:auto;">
+        <span class="category-list_text">{{ category.packages.count }} دسته بندی</span>
+        <a href="{% url 'edu:packages' %}?category_slug={{ category.slug }}" class="icon-btn"><i class="fas fa-arrow-right"></i></a> {% endcomment %}
+    </div> 
+
+    <!-- New Wallet Icon -->
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="{% url 'profiles:user_wallet' %}" class="my-auto">
+                    <img src="{% static 'main/images/icons/wallet.png' %}" alt="کیف پول" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="/profiles/wallet">
+                کیف پول
+            </a>
+        </p>
+    </div>
+
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="#" data-toggle="modal" data-target="#chargeWalletModal" class="my-auto">
+                    <img src="{% static 'main/images/icons/charge_wallet.png' %}" alt="شارژ کیف پول" style="width:60px; margin:auto; display:block;">
+                </a>
+            </div>
+        </div>
+        <p class="font-12 font-weight-bold mt-1">
+            <a href="#" data-toggle="modal" data-target="#chargeWalletModal">
+                شارژ کیف پول
+            </a>
+        </p>
+    </div>
+
+    <div class="col-4 col-lg-4 text-center">
+        <div class="d-flex justify-content-center">
+            <div class="card p-1" style="border-radius:20px;">
+                <a href="{% url 'accounts:logout' %}" class="mb-5 pb-5" >
+                    <img src="{% static 'main/images/icons/log-out.png' %}" alt="خروج از حساب" style="width:60px; height: auto;">
+                    <span class="font-12">خروج از حساب کاربری</span>
+                </a>
+            </div>
+        </div>
+    </div>   
+    <br><br><br><br><br>
+</div>
+
+
+
+<!-- wallet charge -->
+<div class="modal fade" id="chargeWalletModal" tabindex="-1" role="dialog" aria-labelledby="chargeWalletModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" action="{% url 'payment:charge_wallet_by_user' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chargeWalletModalLabel">شارژ کیف پول</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="amount">مبلغ</label>
+                        <input type="number" class="form-control" id="amount" name="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">شرح تراکنش</label>
+                        <input type="text" class="form-control" id="description" name="description" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="submit" class="btn btn-primary">ارسال</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+محصولی
+{% endblock title %}
+
+{% block content %}
+{% comment %} <div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">فیلتر ها</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form id="FilterForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select name="Take" aria-controls="datatable-checkbox" class="form-control input-sm">
+                                <option value="" selected="">پیش فرض</option>
+                                <option value="5" selected="">5 عدد در هر صفحه</option>
+                                <option value="10" selected="">10 عدد در هر صفحه</option>
+                                <option value="20" selected="">20 عدد در هر صفحه</option>
+                                <option value="50" selected="">50 عدد در هر صفحه</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <input type="text" name="FilterByName" placeholder="جستجو بر اساس نام" value="" class="form-control" />
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="FilterByEmail" placeholder="جستجو بر اساس ایمیل" value="" class="form-control" />
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <input type="submit" value="جستجو" class="btn btn-success btn-round" style="width:100%" />
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <!-- /.row -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            در این محصول می‌توانید فیلتر هایی را روی لیست کاربران قرار دهید.
+        </div>
+    </div>
+    <!-- /.card -->
+    <!-- /.row -->
+</div> {% endcomment %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">لیست محصول</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row mb-3">
+                            <div class="col-sm-6">
+                                <a href="{% url 'panel:part_create' %}" class="btn btn-success mb-3">
+                                    <i class="fa fa-plus font-17 mx-2"></i>
+                                    افزودن محصول جدید
+                                </a>
+                            </div>
+                            <div class="col-sm-6 text-left">
+                                <a href="?export=1"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom" title="" data-original-title="دانلود جدول" class="btn btn-primary">
+                                    <i class="fa fa-download font-17 mx-2"></i>
+                                    دانلود جدول
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <table id="sortable-table" class="table is-striped table-striped table-bordered" role="grid" aria-describedby="datatable-checkbox_info">
+                            <input type="hidden" name="" id="#modelName" value="Part">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ردیف</th>
+                                    <th class="text-center">دسته بندی</th>
+                                    <th class="text-center">دسته بندی</th>
+                                    <th class="text-center">مجموعه</th>
+                                    <th class="text-center">فصل</th>
+                                    <th class="text-center">نام محصول</th>
+                                    <th class="text-center">تاریخ ایجاد محصول</th>
+                                    <th class="text-center">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for part in parts %}
+                                <tr data-id="{{ part.id }}">
+                                    <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                    <td class="text-center">{{ part.category|default:"_" }}</td>
+                                    <td class="text-center">{{ part.chapter.course.package|default:"_" }}</td>
+                                    <td class="text-center">{{ part.chapter.course|default:part.course|default:"_" }}</td>
+                                    <td class="text-center">{{ part.chapter|default:"_" }}</td>
+                                    <td class="text-center">{{ part.title|default:"_" }}</td>
+                                    <td class="text-center">{{ part.get_created_at_jalali|default:"_" }}</td>
+                                    <td class="text-center">
+                                        <a href="" data-toggle="modal"
+                                            data-target="#part_delete{{ part.id }}">
+                                            <i class="fa fa-trash text-muted font-17 mx-2"
+                                                data-toggle="tooltip" title=""
+                                                data-original-title="حذف"></i>
+                                        </a>
+                                        
+                                        <a href="{% url 'panel:part_edit' part.id %}">
+                                            <i class="fa fa-edit text-muted font-17 mx-2"></i>
+                                        </a>
+
+                                        <a href="{% url 'panel:duplicate-part' part.id %}">
+                                            <i class="fa fa-copy text-muted font-17 mx-2"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% comment %} delete modals {% endcomment %}
+                                <div class="modal fade" id="part_delete{{ part.id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">آیا از
+                                                    حذف محصول مشخص شده مطمئن هستید؟</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span class="text-dark">
+                                                    {{ part.title }}
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary ml-1"
+                                                    data-dismiss="modal">خیر</button>
+                                                <a href="{% url 'panel:part_delete' part.id %}"
+                                                    class="btn btn-danger">بله حذف شود</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% comment %} <div class="row">
+                    <div class="col-sm-5">
+                        <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                            تعداد کل رکورد ها : {{ objects_count }}
+                            <br />
+                            تعداد نمایش در هر صفحه : 20
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="btn-group">
+
+                        </div>
+                    </div>
+
+                </div> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

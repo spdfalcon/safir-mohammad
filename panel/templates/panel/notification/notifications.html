@@ -1,0 +1,56 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+لاگ های نوتیفیکیشن ها
+{% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">لیست لاگ های نوتیفیکیشن ها</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="{% url 'panel:send_notification' %}" class="btn btn-success mb-3">
+                            <i class="fa fa-plus font-17 mx-2"></i>
+                            ایجاد نوتیفیکیشن جدید
+                        </a>
+
+                        <table id="sortable-table" class="table is-striped table-striped table-bordered" role="grid" aria-describedby="datatable-checkbox_info">
+                            <input type="hidden" name="" id="#modelName" value="Part">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ردیف</th>
+                                    <th class="text-center">عنوان</th>
+                                    <th class="text-center">محتوا</th>
+                                    <th class="text-center">لینک ریدایرکت</th>
+                                    <th class="text-center">تاریخ ایجاد</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for notification in notifications %}
+                                <tr data-id="{{ part.id }}">
+                                    <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                    <td class="text-center">{{ notification.title|default:"_" }}</td>
+                                    <td class="text-center">{{ notification.body|default:"_" }}</td>
+                                    <td class="text-center">{{ notification.link|default:"_" }}</td>
+                                    <td class="text-center">{{ notification.get_created_at|default:"_" }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

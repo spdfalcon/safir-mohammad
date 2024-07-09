@@ -1,0 +1,97 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+نظرات 
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">لیست نظرات </h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="{% url 'panel:comment_create' %}" class="btn btn-success mb-3">
+                            <i class="fa fa-plus font-17 mx-2"></i>
+                            افزودن نظر جدید
+                        </a>
+                        <table id="sortable-table" class="table is-striped table-striped table-bordered" role="grid" aria-describedby="datatable-checkbox_info">
+                            <input type="hidden" name="" id="#modelName" value="Comment">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ردیف</th>
+                                    <th class="text-center">کاربر</th>
+                                    <th class="text-center">دسته بندی</th>
+                                    <th class="text-center">مجموعه</th>
+                                    <th class="text-center">امتیاز</th>
+                                    <th class="text-center">محتوای نظر</th>
+                                    <th class="text-center">تاریخ ایجاد نظر</th>
+                                    <th class="text-center">وضعیت نمایش</th>
+                                    <th class="text-center">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for comment in comments %}
+                                <tr data-id="{{ comment.id }}">
+                                    <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                    <td class="text-center">{{ comment.user|default:"_" }}</td>
+                                    <td class="text-center">{{ comment.package|default:"_" }}</td>
+                                    <td class="text-center">{{ comment.course|default:"_" }}</td>
+                                    <td class="text-center">{{ comment.rate|default:"_" }}</td>
+                                    <td class="text-center">{{ comment.content|truncatechars:25 }}</td>
+                                    <td class="text-center">{{ comment.get_created_at_jalali|default:"_" }}</td>
+                                    <td class="text-center">{{ comment.get_is_active|default:"_" }}</td>
+                                    <td class="text-center">
+                                        <a href="" data-toggle="modal"
+                                            data-target="#comment_delete{{ comment.id }}">
+                                            <i class="fa fa-trash text-muted font-17 mx-2"
+                                                data-toggle="tooltip" title=""
+                                                data-original-title="حذف"></i>
+                                        </a>
+                                        <a href="{% url 'panel:comment_edit' comment.id %}">
+                                            <i class="fa fa-edit text-muted font-17 mx-2"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                
+                                {% comment %} delete modals {% endcomment %}
+                                <div class="modal fade" id="comment_delete{{ comment.id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">آیا از
+                                                    حذف نظر مشخص شده مطمئن هستید؟</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span class="text-dark">
+                                                    {{ comment.user }} - {{ comment.course }}
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary ml-1"
+                                                    data-dismiss="modal">خیر</button>
+                                                <a href="{% url 'panel:comment_delete' comment.id %}"
+                                                 
+                                                class="btn btn-danger">بله حذف شود</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

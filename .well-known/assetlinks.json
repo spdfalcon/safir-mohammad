@@ -1,0 +1,18 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.app.safirmall",
+    "sha256_cert_fingerprints":
+    ["8F:00:8E:FA:A8:D1:0D:F8:EF:A1:00:F2:AD:46:3D:70:CB:63:DF:A5:6D:09:CE:84:74:EF:2E:30:2F:E7:97:5A"]
+  }
+},
+  {
+    "relation": [
+      "check_validation"
+    ],
+    "target": {
+      "namespace": "cafebazaar_twa",
+      "package_name": "com.app.safirmall"
+    }
+  }]

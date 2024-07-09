@@ -1,0 +1,103 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+کد های تخفیف 
+{% endblock title %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">لیست کد های تخفیف</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="{% url 'panel:discount_create' %}" class="btn btn-success mb-3">
+                            <i class="fa fa-plus font-17 mx-2"></i>
+                            افزودن کد تخفیف جدید
+                        </a>
+
+                        <table id="sortable-table" class="table is-striped table-striped table-bordered" role="grid" aria-describedby="datatable-checkbox_info">
+                            <input type="hidden" name="" id="#modelName" value="Discount">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ردیف</th>
+                                    <th class="text-center">کد</th>
+                                    <th class="text-center">مقدار تخفیف</th>
+                                    <th class="text-center">وضعیت</th>
+                                    <th class="text-center">تاریخ شروع</th>
+                                    <th class="text-center">تاریخ پایان</th>
+                                    <th class="text-center">دسته بندی ها</th>
+                                    <th class="text-center">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for discount in discounts %}
+                                <tr data-id="{{ discount.id }}">
+                                    <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                    <td class="text-center">{{ discount.code|default:"_" }}</td>
+                                    <td class="text-center">{{ discount.value|intcomma:False|default:"_" }}</td>
+                                    <td class="text-center">{{ discount.get_is_valid|default:"_" }}</td>
+                                    <td class="text-center">{{ discount.get_start_date_jalali|default:"_" }}</td>
+                                    <td class="text-center">{{ discount.get_end_date_jalali|default:"_" }}</td>
+                                    <td class="text-center">
+                                        {% for dis in discount.categories.all %}
+                                            <span style="display: inline-block; padding: 2px 4px; border-radius: 6px ; background-color: #474747; font-size: 9px; margin: 2px; color: white">
+                                                {{ dis.title }}
+                                            </span>
+                                        {% endfor %}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="" data-toggle="modal"
+                                            data-target="#discount_delete{{ discount.id }}">
+                                            <i class="fa fa-trash text-muted font-17 mx-2"
+                                                data-toggle="tooltip" title=""
+                                                data-original-title="حذف"></i>
+                                        </a>
+                                        
+                                        <a href="{% url 'panel:discount_edit' discount.id %}">
+                                            <i class="fa fa-edit text-muted font-17 mx-2"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% comment %} delete modals {% endcomment %}
+                                <div class="modal fade" id="discount_delete{{ discount.id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">آیا از
+                                                    حذف تخفیف مشخص شده مطمئن هستید؟</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span class="text-dark">
+                                                    {{ discount }}
+                                                </span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary ml-1"
+                                                    data-dismiss="modal">خیر</button>
+                                                <a href="{% url 'panel:discount_delete' discount.id %}"
+                                                    class="btn btn-danger">بله حذف شود</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,209 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+کاربران
+{% endblock title %}
+
+{% block content %}
+<div class="card card-default">
+    <div class="card-header">
+        <h3 class="card-title">کیف پول کاربران</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="sortable-table" class="table is-striped table-striped table-bordered" role="grid" aria-describedby="datatable-checkbox_info">
+                        <input type="hidden" name="" id="#modelName" value="User">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><input type="checkbox" id="select-all"></th>
+                                <th class="text-center">ردیف</th>
+                                <th class="text-center">نام کاربر</th>
+                                <th class="text-center">تاریخ ایجاد کاربر</th>
+                                <th class="text-center">عملیات</th>
+                                <th class="text-center">موجودی کیف پول</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr data-id="{{ user.id }}">
+                                <td class="text-center"><input type="checkbox" class="user-checkbox" data-user-id="{{ user.id }}" data-user-name="{{ user.username }}"></td>
+                                <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                <td class="text-center">{{ user|default:"_" }}</td>
+                                <td class="text-center">{{ user.get_date_joined|default:"_" }}</td>
+                                <td class="text-center">
+                                    <a href="" data-toggle="modal" data-target="#user_delete{{ user.id }}">
+                                        <i class="fa fa-trash text-muted font-17 mx-2" data-toggle="tooltip" title="" data-original-title="حذف"></i>
+                                    </a>
+                                    <a href="{% url 'panel:user_edit' user.id %}">
+                                        <i class="fa fa-edit text-muted font-17 mx-2" data-toggle="tooltip" title="" data-original-title="ویرایش"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <p>{{ user.wallet.balance }}</p>
+                                </td>
+                            </tr>
+
+                            {% comment %} delete modals {% endcomment %}
+                            <div class="modal fade" id="user_delete{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">آیا از حذف کاربر مشخص شده مطمئن هستید؟</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span class="text-dark">{{ user }}</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal">خیر</button>
+                                            <a href="{% url 'panel:user_delete' user.id %}" class="btn btn-danger">بله حذف شود</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="selected-users" class="mt-4">
+                <h4>کاربران انتخاب شده (<span id="selected-users-count">0</span>)</h4>
+                <div id="selected-users-tags">
+                    <!-- Selected users will be appended here as tags -->
+                </div>
+                <button id="charge-wallet-btn" class="btn btn-primary mt-2" style="display:none;">شارژ کیف پول</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tag {
+        display: inline-block;
+        background-color: #e0e0e0;
+        border-radius: 3px;
+        padding: 2px 8px;
+        margin: 2px;
+        font-size: 12px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectAllCheckbox = document.getElementById('select-all');
+        const userCheckboxes = document.querySelectorAll('.user-checkbox');
+        const selectedUsersTags = document.getElementById('selected-users-tags');
+        const selectedUsersCount = document.getElementById('selected-users-count');
+        const chargeWalletBtn = document.getElementById('charge-wallet-btn');
+        const submitChargeBtn = document.getElementById('submit-charge-btn');
+        const chargeWalletForm = document.getElementById('charge-wallet-form');
+        const descriptionInput = document.getElementById('description');
+        const amountInput = document.getElementById('amount');
+
+        selectAllCheckbox.addEventListener('change', function () {
+            userCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+                updateSelectedUsersList();
+            });
+        });
+
+        userCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                if (!this.checked) {
+                    selectAllCheckbox.checked = false;
+                }
+                updateSelectedUsersList();
+            });
+        });
+
+        chargeWalletBtn.addEventListener('click', function () {
+            $('#chargeWalletModal').modal('show');
+        });
+
+        submitChargeBtn.addEventListener('click', function () {
+            const selectedUserIds = Array.from(userCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.dataset.userId);
+
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'user_ids';
+            hiddenInput.value = JSON.stringify(selectedUserIds);
+
+            chargeWalletForm.appendChild(hiddenInput);
+            chargeWalletForm.submit();
+        });
+
+        window.addEventListener('keypress' , (e)=>{
+            if (e.charCode == 13 && $('#chargeWalletModal').hasClass('show')) {
+                console.log(e.charCode);
+                const selectedUserIds = Array.from(userCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.dataset.userId);
+
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'user_ids';
+            hiddenInput.value = JSON.stringify(selectedUserIds);
+
+            chargeWalletForm.appendChild(hiddenInput);
+            chargeWalletForm.submit();
+            }
+        })
+
+        function updateSelectedUsersList() {
+            selectedUsersTags.innerHTML = '';
+            let selectedCount = 0;
+            userCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedCount++;
+                    const tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.textContent = checkbox.dataset.userName;
+                    selectedUsersTags.appendChild(tag);
+                }
+            });
+            selectedUsersCount.textContent = selectedCount;
+            chargeWalletBtn.style.display = selectedCount > 0 ? 'inline-block' : 'none';
+        }
+    });
+</script>
+
+
+<div class="modal fade" id="chargeWalletModal" tabindex="-1" role="dialog" aria-labelledby="chargeWalletModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chargeWalletModalLabel">شارژ کیف پول</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="بستن">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="charge-wallet-form" action="{% url 'panel:wallet-charge' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="description">توضیحات</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">مبلغ شارژ(تومان)</label>
+                        <input type="number" class="form-control" id="amount" name="amount">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary" id="submit-charge-btn">شارژ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load jalali_tags %}
+{% load humanize %}
+{% block title %}
+    صورت حساب ها
+    {{ request.user.get_full_name|default:"حساب من" }}
+{% endblock %}
+
+{% block css %}
+<style>
+    /* Add any custom styles here */
+    .badge {
+        border-radius: 5px !important;
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    {% if request.GET.message %}
+        <div class="container">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ request.GET.message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row mx-auto" style="width:95%">
+        <p class="alert alert-info text-center">
+            {% if user.get_full_name %}
+                {{ user.first_name }} {{ user.last_name }} عزیز!
+            {% endif %}
+            <br>
+            موجودی کیف پول شما: <strong>{{ wallet.get_formatted_balance }} تومان </strong>
+            <br>
+            کل تراکنش های کیف پول شما به شرح زیر است
+        </p>
+        
+        <div class="card p-2">
+            <table class="table table-stripped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            ردیف
+                        </th>
+                        <th>
+                            جزئیات
+                        </th>
+                        <th>
+                            شرح تراکنش
+                        </th>
+                        <th>
+                            وضعیت
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="font-12">
+                                مبلغ : {{ transaction.amount|intcomma:False }} تومان
+                                <br>
+                                تاریخ : {{ transaction.get_created_at_jalali }}
+                            </td>
+                            <td class="font-12">
+                                {{ transaction.message }}
+                            </td>
+                            <td class="">
+                                {% if transaction.transaction_type == 'C1' %}
+                                    {% if transaction.charge_by and transaction.charge_by == 'A' %}
+                                        <span class="badge badge-success my-auto order" style="position:relative !important">
+                                            شارژ توسط ادمین
+                                        </span>
+                                    {% elif transaction.charge_by and transaction.charge_by == 'U' %}
+                                        <span class="badge badge-success my-auto order" style="position:relative !important">
+                                            شارژ توسط شما
+                                        </span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="badge badge-danger my-auto order" style="position:relative !important ">
+                                        برداشت
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% include 'profiles/footer.html' %}
+<br><br>
+{% endblock content %}
+
+{% block javascripts %}
+    <!-- Add any custom JavaScript here -->
+{% endblock javascripts %}

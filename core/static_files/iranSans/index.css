@@ -1,0 +1,18 @@
+@font-face {
+    font-family: iranSans;
+    src: url('IRANSansWeb(FaNum).eot');
+    src: url('IRANSansWeb(FaNum).eot?#iefix') format('embedded-opentype'), 
+    url('IRANSansWeb(FaNum).woff2') format('woff2'), 
+    url('IRANSansWeb(FaNum).woff') format('woff'), 
+    url('IRANSansWeb(FaNum).ttf') format('truetype');
+    font-weight: normal;
+    font-display: swap;
+}
+
+* {
+    font-family: 'iranSans', Verdana, Geneva, Tahoma, sans-seri ;
+}
+
+p, span, strong, a, li, b, div, h1, h2, h3, h4, h5, h6, button, input{
+    font-family: 'iranSans', Verdana, Geneva, Tahoma, sans-seri !important;
+}

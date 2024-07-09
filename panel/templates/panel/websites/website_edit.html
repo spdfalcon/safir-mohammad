@@ -1,0 +1,78 @@
+{% extends 'layouts/base_panel.html' %}
+{% load static %}
+
+{% block title %}
+ویرایش وبسایت ـ 
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">ویرایش وبسایت {{ website.title }}</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <form action="" method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ field.label }}:&nbsp;</strong><span>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="title">نام وبسایت*</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ website.title }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="link">لینک وبسایت*</label>
+                                    <input type="text" class="form-control" id="link" name="link" value="{{ website.link }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="image">عکس وبسایت*</label>
+                                    <input type="file" class="form-control" id="image" name="image">
+                                </div>
+                            </div>
+                         
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">ویرایش وبسایت</button>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+{% endblock content %}

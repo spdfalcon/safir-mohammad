@@ -1,0 +1,137 @@
+{% extends 'accounts/base_login.html' %}
+{% load static %}
+
+{% block title %}
+ثبت نام/ورود به سفیر
+{% endblock title %}
+{% block form_title %}ورود به سایت{% endblock form_title %}
+
+{% block css %}
+<style>
+  .phone-input{
+    direction:ltr !important;
+  }
+
+  /* قرمز کردن حاشیه پایین input */
+  .phone-input.invalid {
+    border-bottom: 2px solid red;
+  }
+
+  /* سایز کردن حاشیه پایین input */
+  .phone-input.valid {
+    border-bottom: 2px solid green;
+  }
+</style>
+<style>
+  /* سبک برای پاپ‌آپ */
+  .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+
+      height:60%;
+      overflow-y:auto;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+  }
+  
+  .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+  }
+</style>
+{% endblock %}
+
+
+{% block form_inputs %}
+
+<div class="form-group">
+  <label for="name"><i class="zmdi zmdi-smartphone material-icons-name"></i></label>
+  <input type="text" class="phone-input" name="phone" id="name" autofocus required value='{{ request.POST.phone }}' placeholder='شماره موبایل' oninput="this.value = this.value.slice(0, 11)"/>
+</div>
+{% endblock form_inputs %}
+
+{% block form_button %}
+<input type="submit" style="background-color:#241665;width:100%;font-weight:bold" name="login" id="signup" class="form-submit" value="ارسال کد تایید"/>
+{% endblock form_button %}
+
+
+{% block javascripts %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var phoneInput = document.querySelector('.phone-input');
+    
+    phoneInput.addEventListener('input', function() {
+      var inputValue = this.value.trim();
+      var inputLength = inputValue.length;
+      
+      if (inputLength === 11) {
+        this.classList.remove('invalid');
+        this.classList.add('valid');
+        this.size = 11; // اضافه کردن اندازه
+      } else {
+        this.classList.remove('valid');
+        this.classList.add('invalid');
+        this.size = null; // حذف اندازه
+      }
+    });
+  });
+  
+  
+</script>
+
+<script>
+  document.getElementById('privacy').addEventListener('click', function(event) {
+      event.preventDefault();
+      
+      // کپی کردن محتوای divPrivacy به پاپ‌آپ
+      document.getElementById('popupContent').innerHTML = document.getElementById('divPrivacy').innerHTML;
+      
+      // نمایش پاپ‌آپ و overlay
+      document.getElementById('popupOverlay').style.display = 'block';
+      document.getElementById('popupPrivacy').style.display = 'block';
+  });
+
+  document.getElementById('popupOverlay').addEventListener('click', function() {
+      // مخفی کردن پاپ‌آپ و overlay
+      document.getElementById('popupOverlay').style.display = 'none';
+      document.getElementById('popupPrivacy').style.display = 'none';
+  });
+
+  document.getElementById('closePopup').addEventListener('click', function() {
+      // مخفی کردن پاپ‌آپ و overlay
+      document.getElementById('popupOverlay').style.display = 'none';
+      document.getElementById('popupPrivacy').style.display = 'none';
+  });
+</script>
+
+{% endblock javascripts %}
+
+{% block form_footer %}
+  <p class="my-2 text-muted">
+      <a class="text-blue d-flex justify-content-center align-self-center" 
+      href="{% url 'accounts:login' %}">
+      <i class="feather icon-user-plus align-self-center ml-1 font-16"></i>
+      ایجاد حساب کاربری جدید</a>
+  </p>
+{% endblock form_footer %}
+
+
+
+
+<div class="form-group mb-3" dir="ltr">
+    
+    
+</div>
